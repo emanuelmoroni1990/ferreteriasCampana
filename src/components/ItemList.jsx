@@ -12,18 +12,15 @@ const ItemList = ({herramientas}) => {
 
     return (
         <div>
-            <Container maxW='550px' bg='purple.600' color='white'>
-                {
-                    herramientas.map ((herramienta) => {
+            <Container>
+                {   herramientas.map((herramienta) => {
+                        <Item id={herramienta.id} nombre={herramienta.nombre} descripcion={herramienta.descripcion} stock={herramienta.stock}></Item>
                         console.log(herramienta.id);
                         console.log(herramienta.nombre);
                         console.log(herramienta.descripcion);
-                        console.log(herramienta.stock);
-
-                        <Item id={herramienta.id} nombre={herramienta.nombre} descripcion={herramienta.descripcion} stock={herramienta.stock}/>
-                    })
-                }
-            </Container>      
+                        console.log(herramienta.stock);                        
+                })}
+            </Container> 
         </div>
     )
 }

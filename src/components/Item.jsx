@@ -6,11 +6,6 @@ import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, Butto
 
 const Item = ({id, nombre, descripcion, stock}) => {
 
-    console.log(id);
-    console.log(nombre);
-    console.log(descripcion);
-    console.log(stock);
-
     return (
         <div>
             <div key={id}>

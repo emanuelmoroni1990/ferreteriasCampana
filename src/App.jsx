@@ -7,9 +7,7 @@ import ItemListContainer from "./components/ItemListContainer";
 function App() {
   return (
     <BrowserRouter>
-        <Item id={1} nombre={"hola"} descripcion={"¿como va?"} stock={5}></Item>
         <ItemListContainer></ItemListContainer>
-        {/* <NavBar></NavBar> */}
     </BrowserRouter>
   )
 }
