@@ -1,0 +1,10 @@
+[
+    {"id": 1, "nombre": "Destornillador", "descripcion": "Phillip, BAHCO", "stock": 10},
+    {"id": 2, "nombre": "Destornillador", "descripcion": "Plano, BAHCO", "stock": 10},
+    {"id": 3, "nombre": "Alicate", "descripcion": "BAHCO", "stock": 10},
+    {"id": 4, "nombre": "Pinza", "descripcion": "BAHCO", "stock": 10},
+    {"id": 5, "nombre": "Alicate", "descripcion": "China", "stock": 10},
+    {"id": 6, "nombre": "Pinza", "descripcion": "China", "stock": 10},
+    {"id": 7, "nombre": "PortaLámpara", "descripcion": "China", "stock": 10},
+    {"id": 8, "nombre": "PortaLámpara", "descripcion": "Alemana", "stock": 10}
+]

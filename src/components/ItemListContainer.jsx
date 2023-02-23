@@ -1,20 +1,36 @@
+// Links de interes:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise#return_value
+
+import herramientas from '../data.json'
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import ItemList from './ItemList';
 
+const ItemListContainer = () => {
 
-const ItemListContainer = ({greeting}) => {
+  const getData = () =>{
+    return new Promise ((resolve, reject) => {
+      if(herramientas.length === null){
+        reject(new Error("Empty Data..."));
+      }
+      resolve(herramientas);
+    });
+  }
+
+  async function fetchingData() {
+    try {
+      const datos = await getData();
+    } catch (error) {
+      console.log(error);
+    }    
+  }
+  
+  fetchingData();
+  // console.log("Herramientas: " + herramientas);
+
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Body>
-        <Card.Title>{greeting}</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
+    <div>
+      <ItemList herramientas={herramientas}></ItemList>
+    </div>
   )
 }
 

@@ -1,10 +1,16 @@
 // import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from './components/NavBar';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Item from "./components/Item";
+import ItemListContainer from "./components/ItemListContainer";
 
 function App() {
   return (
-    <NavBar></NavBar>
+    <BrowserRouter>
+        <Item id={1} nombre={"hola"} descripcion={"¿como va?"} stock={5}></Item>
+        <ItemListContainer></ItemListContainer>
+        {/* <NavBar></NavBar> */}
+    </BrowserRouter>
   )
 }
 
