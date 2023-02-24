@@ -2,6 +2,7 @@
 // https://chakra-ui.com/docs/components/card/usage
 // https://github.com/facebook/react/issues/23347
 
+import '../styles/style.css'
 import React from 'react'
 import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, ButtonGroup, Button } from '@chakra-ui/react'
 
@@ -13,7 +14,7 @@ const Item = ({id, nombre, descripcion, stock}) => {
     console.log(stock);
 
     return (
-        <div key={id}>
+        <div key={id} className='item-personal'>
                 <Card maxW='sm'>
                     <CardBody>
                         <Image src='src/img/tools_1.jpg' alt='Foto de herramienta generica.' borderRadius='lg'/>

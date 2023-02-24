@@ -1,0 +1,12 @@
+.card-personal{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.item-personal{
+    padding: 1rem;
+}

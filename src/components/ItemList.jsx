@@ -2,9 +2,10 @@
 // https://chakra-ui.com/docs/components/container/usage
 // https://beta.reactjs.org/learn/rendering-lists; Empleando lo mencionado en este link es como pude resolver el problema de no poder renderizar correctamente los items.
 
+import '../styles/style.css'
 import React from 'react'
 import Item from './Item'
-import { Container } from '@chakra-ui/react'
+import { Container, Box } from '@chakra-ui/react'
 
 const ItemList = ({herramientas}) => {
     //console.log("ItemList herramientas: " + herramientas);
@@ -20,10 +21,9 @@ const ItemList = ({herramientas}) => {
     );
 
     return (
-        <div>
-            <Container>
-                {listItems}
-            </Container>
+        // Doy al contenedor de todas las tarjeta de productos los estilos de un display flex para que se apilen según el ancho de la pantalla.
+        <div className='card-personal'>
+            {listItems}
         </div>
     )
 }
