@@ -9,6 +9,7 @@
 
 // Imagenes: unsplash, flaticon
 
+import '../styles/style.css'
 import React from 'react';
 import { Box, Flex, Avatar, HStack, Link, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack} from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
@@ -35,7 +36,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4} className='navbar-personal'>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
@@ -43,6 +44,7 @@ const NavBar = () => {
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
+            className='iconbutton-personal'
           />
           <HStack spacing={8} alignItems={'center'}>
             <Avatar
@@ -56,10 +58,11 @@ const NavBar = () => {
             <HStack
               as={'nav'}
               spacing={4}
-              display={{ base: 'none', md: 'flex' }}>
-              <NavLink>Dashboard</NavLink>
-              <NavLink>Projects</NavLink>
-              <NavLink>Team</NavLink>
+              display={{ base: 'none', md: 'flex' }}
+              className='pilaHorizontal-personal'>
+                <a className='pilaHorizontal-personal' href='#'>Dashboard</a>
+                <a href='#'>Projects</a>
+                <a href='#'>Team</a>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -98,7 +101,7 @@ const NavBar = () => {
 
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
+            <Stack as={'nav'} spacing={4} className='pilaHorizontal-personal'>
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}

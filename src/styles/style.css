@@ -1,3 +1,24 @@
+/* Paleta de colores para el proyecto: https://coolors.co/palette/335c67-fff3b0-e09f3e-9e2a2b-540b0e */
+/* https://coolors.co/palette/3d5a80-98c1d9-e0fbfc-ee6c4d-293241 */
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.navbar-personal{
+    background-color: rgb(61, 90, 128) !important;
+}
+
+.iconbutton-personal{
+    background-color: rgb(61, 90, 128) !important;
+    outline-color: rgb(152, 193, 217) !important;
+    outline-width: 1px !important;
+}
+
+.pilaHorizontal-personal a{
+    color: rgb(152, 193, 217) !important;;
+}
+
 .card-personal{
     display: flex;
     flex-wrap: wrap;
