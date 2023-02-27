@@ -1,23 +1,48 @@
 /* Paleta de colores para el proyecto: https://coolors.co/palette/335c67-fff3b0-e09f3e-9e2a2b-540b0e */
 /* https://coolors.co/palette/3d5a80-98c1d9-e0fbfc-ee6c4d-293241 */
 
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Roboto:wght@300&display=swap');
+
+:root{
+    --main-color: rgb(61, 90, 128);
+    --main-letter-color: rgb(152, 193, 217);
+    --main-letter-color-ligth: rgb(224, 251, 252);
+    --main-letter-color-dark: rgb(41, 50, 65);
+    --main-alternative: rgb(238, 108, 77);
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
 
+/* NavBar */
+
 .navbar-personal{
-    background-color: rgb(61, 90, 128) !important;
+    background-color: var(--main-color) !important;
 }
 
 .iconbutton-personal{
-    background-color: rgb(61, 90, 128) !important;
-    outline-color: rgb(152, 193, 217) !important;
+    background-color: var(--main-color) !important;
+    outline-color: var(--main-letter-color) !important;
     outline-width: 1px !important;
 }
 
 .pilaHorizontal-personal a{
-    color: rgb(152, 193, 217) !important;;
+    color: var(--main-letter-color) !important;;
 }
+
+/* Landing Page */
+
+.heading-personal{
+    background-color: rgba(255, 252, 252, 0.5) !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: xx-large !important;
+    color: var(--main-letter-color-dark);
+    border-radius: 25px;
+    text-align: center;
+}
+
+/* Lista de productos */
 
 .card-personal{
     display: flex;

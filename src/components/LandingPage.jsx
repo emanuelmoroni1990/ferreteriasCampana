@@ -39,23 +39,17 @@ const LandingPage = () => {
   // This can be static or loaded from a server
   const cards = [
     {
-      title: 'Design Projects 1',
-      text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+      title: 'Herramientas profesionales',
       image:
         './src/img/carousel/carousel_1.jpg',
     },
     {
-      title: 'Design Projects 2',
-      text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+      title: 'Insumos nacionales e importados',
       image:
         './src/img/carousel/carousel_2.jpg',
     },
     {
-      title: 'Design Projects 3',
-      text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+      title: 'Asistencia al cliente',
       image:
         './src/img/carousel/carousel_3.jpg',
     },
@@ -123,12 +117,9 @@ const LandingPage = () => {
                 position="absolute"
                 top="75%"
                 transform="translate(0, -50%)">
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className='heading-personal'>
                   {card.title}
                 </Heading>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
-                  {card.text}
-                </Text>
               </Stack>
             </Container>
           </Box>

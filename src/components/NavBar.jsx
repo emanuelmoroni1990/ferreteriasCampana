@@ -11,24 +11,9 @@
 
 import '../styles/style.css'
 import React from 'react';
-import { Box, Flex, Avatar, HStack, Link, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack} from '@chakra-ui/react';
+import { Link } from 'react-router-dom'
+import { Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack} from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
-
-const Links = ['Dashboard', 'Projects', 'Team'];
-
-const NavLink = ({children}) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
-      textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
-    }}
-    href={'#'}>
-    {children}
-  </Link>
-);
 
 const NavBar = () => {
 
@@ -47,12 +32,14 @@ const NavBar = () => {
             className='iconbutton-personal'
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Avatar
+            <Link to={'/'}>
+              <Avatar
                   size={'md'}
                   src={
                     'src/img/icons/tool-box.png'
                   }
                 />
+            </Link>
             {/* Decomentar para ingresar el nombre de la marcar. Aplicar estilos para que queden centrados juntos. */}
             {/* <Box>Logo</Box> */}
             <HStack
@@ -60,9 +47,9 @@ const NavBar = () => {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}
               className='pilaHorizontal-personal'>
-                <a className='pilaHorizontal-personal' href='#'>Dashboard</a>
-                <a href='#'>Projects</a>
-                <a href='#'>Team</a>
+                <Link to={'/ListadoProductos'}>Productos</Link>
+                <Link to={'#'}>Marcas</Link>
+                <Link to={'#'}>Equipo</Link>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -102,9 +89,9 @@ const NavBar = () => {
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4} className='pilaHorizontal-personal'>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
+              <Link to={'/ListadoProductos'}>Productos</Link>
+              <Link to={'#'}>Marcas</Link>
+              <Link to={'#'}>Equipo</Link>
             </Stack>
           </Box>
         ) : null}

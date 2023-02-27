@@ -8,8 +8,10 @@ function App() {
   return (
     <BrowserRouter>
         <NavBar></NavBar>
-        <LandingPage></LandingPage>
-        {/* <ItemListContainer></ItemListContainer> */}
+        <Routes>
+          <Route exact path="/" element={<LandingPage></LandingPage>}></Route>
+          <Route exact path="/ListadoProductos" element={<ItemListContainer></ItemListContainer>}></Route>
+        </Routes>
     </BrowserRouter>
   )
 }
