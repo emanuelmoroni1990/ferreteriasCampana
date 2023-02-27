@@ -6,6 +6,8 @@
 // Chakra
 // Instalacion de iconos: https://chakra-ui.com/docs/components/icon
 // Template utilizado: https://chakra-templates.dev/navigation/navbar
+// useDisclousure hook: https://chakra-ui.com/docs/hooks/use-disclosure
+
 
 // Imagenes: unsplash, flaticon
 
@@ -17,6 +19,9 @@ import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
 const NavBar = () => {
 
+  // useDisclosure is a custom hook used to help handle common open, close, or toggle scenarios. It can be used to control feedback component such as Modal, AlertDialog, Drawer, etc.
+  // The useDisclosure hook returns an object with the following fields:
+  // isOpen => If true, it sets the controlled component to its visible state.
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -25,9 +30,13 @@ const NavBar = () => {
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
+            // Aquí estoy empleando el campo isOpen del objeto retornado por el hook useDisclosure();
+            // Si es verdadero, muestro el ícono de cierre. En caso de se contrario, muestro el ícono de las líneas tipo "hamburguesa".
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
+            // onClose => Callback function to set a falsy value for the isOpen parameter.
+            // onOpen => Callback function to set a truthy value for the isOpen parameter.
             onClick={isOpen ? onClose : onOpen}
             className='iconbutton-personal'
           />
@@ -54,14 +63,7 @@ const NavBar = () => {
           </HStack>
           <Flex alignItems={'center'}>
             {/* Este boton por el momentos no tiene utilidad, de manera que lo dejo comentado. Ver su aplicacion en etapas posteriores del proyecto. */}
-            {/* <Button
-              variant={'solid'}
-              colorScheme={'teal'}
-              size={'sm'}
-              mr={4}
-              leftIcon={<AddIcon/>}>
-              Action
-            </Button> */}
+            {/* <Button variant={'solid'} colorScheme={'teal'} size={'sm'} mr={4} leftIcon={<AddIcon/>}>Action</Button> */}
             <Menu>
               <MenuButton
                 as={Button}
@@ -86,6 +88,7 @@ const NavBar = () => {
           </Flex>
         </Flex>
 
+        
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4} className='pilaHorizontal-personal'>
@@ -95,6 +98,7 @@ const NavBar = () => {
             </Stack>
           </Box>
         ) : null}
+
       </Box>
     </div>
   )

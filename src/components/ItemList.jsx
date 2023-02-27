@@ -5,7 +5,6 @@
 import '../styles/style.css'
 import React from 'react'
 import Item from './Item'
-import { Container, Box } from '@chakra-ui/react'
 
 const ItemList = ({herramientas}) => {
     //console.log("ItemList herramientas: " + herramientas);
@@ -17,7 +16,14 @@ const ItemList = ({herramientas}) => {
 
     const listItems = herramientas.map
     (herramienta => 
-        <Item key={herramienta.id} id={herramienta.id} nombre={herramienta.nombre} descripcion={herramienta.descripcion} stock={herramienta.stock}></Item>
+        <Item 
+            key={herramienta.id} 
+            id={herramienta.id} 
+            nombre={herramienta.nombre} 
+            categoria={herramienta.categoria}
+            subcategoria={herramienta.subcategoria} 
+            stock={herramienta.stock}>
+        </Item>
     );
 
     return (

@@ -56,3 +56,13 @@
 .item-personal{
     padding: 1rem;
 }
+
+.cardfooter-personal{
+    display: flex;
+    justify-content: center;
+}
+
+.button-personal{
+    background-color: var(--main-color) !important;
+    color: var(--main-letter-color) !important;
+}
