@@ -4,7 +4,9 @@
         "nombre": "Destornillador",
         "categoria": "Destornillador BAHCO",
         "subcategoria": "Plano",
-        "descripcion": "Destornillador punta plana marca BAHCO. Mango de PVC color amarillo. Origen: Alemania", 
+        "marca": "bahco",
+        "descripcion": "Destornillador punta plana marca BAHCO. Mango de PVC color amarillo. Origen: Alemania",
+        "imagen": "../src/img/tools_1.jpg",
         "stock": 10
     },
     {
@@ -12,7 +14,9 @@
         "nombre": "Destornillador",
         "categoria": "Destornillador BAHCO",
         "subcategoria": "Phillip",
-        "descripcion": "Destornillador punta tipo phillip marca BAHCO. Mango de PVC color amarillo. Origen: Alemania", 
+        "marca": "bahco",
+        "descripcion": "Destornillador punta tipo phillip marca BAHCO. Mango de PVC color amarillo. Origen: Alemania",
+        "imagen": "../src/img/tools_1.jpg", 
         "stock": 10
     },
     {
@@ -20,7 +24,9 @@
         "nombre": "Destornillador",
         "categoria": "Destornillador Chino",
         "subcategoria": "Plano",
-        "descripcion": "Destornillador punta plana marca genérica. Mango de PVC color negro. Origen: China", 
+        "marca": "generico",
+        "descripcion": "Destornillador punta plana marca genérica. Mango de PVC color negro. Origen: China",
+        "imagen": "../src/img/tools_1.jpg", 
         "stock": 10
     },
     {
@@ -28,7 +34,49 @@
         "nombre": "Destornillador",
         "categoria": "Destornillador Chino",
         "subcategoria": "Phillip",
-        "descripcion": "Destornillador punta tipo phillip marca genérica. Mango de PVC color negro. Origen: China", 
+        "marca": "generico",
+        "descripcion": "Destornillador punta tipo phillip marca genérica. Mango de PVC color negro. Origen: China",
+        "imagen": "../src/img/tools_1.jpg", 
         "stock": 10
-    }    
+    },
+    {
+        "id": 5, 
+        "nombre": "Pinza",
+        "categoria": "Pinza de mano",
+        "subcategoria": "Pinza de mano Stanley",
+        "marca": "stanley",
+        "descripcion": "Pinza para trabajo manual, tamaño mediano. Mango de PVC color naranja. Origen: USA",
+        "imagen": "../src/img/tools_2.jpg", 
+        "stock": 10
+    },    
+    {
+        "id": 6, 
+        "nombre": "Alicate",
+        "categoria": "Alicate de mano",
+        "subcategoria": "Alicate de mano Stanley",
+        "marca": "stanley",
+        "descripcion": "Alicate para trabajo manual, tamaño mediano. Mango de PVC color naranja. Origen: USA",
+        "imagen": "../src/img/tools_2.jpg", 
+        "stock": 10
+    },
+    {
+        "id": 7, 
+        "nombre": "Rotopercutor",
+        "categoria": "Herramienta industrial",
+        "subcategoria": "Rotopercutor Makita",
+        "marca": "makita",
+        "descripcion": "Rotopercuto Makita de uso insdustrial. Mandril con diámetro máximo de 20. Color celeste. Origen: USA",
+        "imagen": "../src/img/tools_3.jpg", 
+        "stock": 10
+    },
+    {
+        "id": 8, 
+        "nombre": "Taladro",
+        "categoria": "Herramienta industrial",
+        "subcategoria": "Taladro BOSCH",
+        "marca": "bosch",
+        "descripcion": "Taladro de uso insdustrial. Mandril con diámetro máximo de 14. Color negro. Origen: España",
+        "imagen": "../src/img/tools_3.jpg", 
+        "stock": 10
+    }
 ]

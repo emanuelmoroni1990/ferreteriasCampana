@@ -21,7 +21,8 @@ const ItemList = ({herramientas}) => {
             id={herramienta.id} 
             nombre={herramienta.nombre} 
             categoria={herramienta.categoria}
-            subcategoria={herramienta.subcategoria} 
+            subcategoria={herramienta.subcategoria}
+            imagen={herramienta.imagen} 
             stock={herramienta.stock}>
         </Item>
     );

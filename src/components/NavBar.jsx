@@ -7,6 +7,7 @@
 // Instalacion de iconos: https://chakra-ui.com/docs/components/icon
 // Template utilizado: https://chakra-templates.dev/navigation/navbar
 // useDisclousure hook: https://chakra-ui.com/docs/hooks/use-disclosure
+// https://stackoverflow.com/questions/70159125/how-do-i-show-a-modal-box-on-page-load-using-chakra-ui
 
 
 // Imagenes: unsplash, flaticon
@@ -14,7 +15,7 @@
 import '../styles/style.css'
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack} from '@chakra-ui/react';
+import { Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
 const NavBar = () => {
@@ -45,7 +46,7 @@ const NavBar = () => {
               <Avatar
                   size={'md'}
                   src={
-                    'src/img/icons/tool-box.png'
+                    '../src/img/icons/tool-box.png'
                   }
                 />
             </Link>
@@ -57,8 +58,17 @@ const NavBar = () => {
               display={{ base: 'none', md: 'flex' }}
               className='pilaHorizontal-personal'>
                 <Link to={'/ListadoProductos'}>Productos</Link>
-                <Link to={'#'}>Marcas</Link>
-                <Link to={'#'}>Equipo</Link>
+                {/* <Link to={'#'}>Marcas</Link> */}
+                <Menu>
+                  <MenuButton className='menuButton-personal'>Marcas</MenuButton>
+                  <MenuList>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/stanley'}>Stanley</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/bahco'}>Bahco</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/bosch'}>Bosch</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/makita'}>Makita</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/generico'}>Genéricas</Link></MenuItem>
+                </MenuList>
+                </Menu>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -74,13 +84,13 @@ const NavBar = () => {
                 <Avatar
                   size={'md'}
                   src={
-                    'src/img/icons/profile.png'
+                    '../src/img/icons/profile.png'
                   }
                 />
               </MenuButton>
               <MenuList>
                 <MenuItem>Editar perfil</MenuItem>
-                <MenuItem>Compras realizadas</MenuItem>
+                <MenuItem>Compras realizadas (5)</MenuItem>
                 <MenuDivider />
                 <MenuItem>Cerrar sesión</MenuItem>
               </MenuList>
@@ -93,8 +103,16 @@ const NavBar = () => {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4} className='pilaHorizontal-personal'>
               <Link to={'/ListadoProductos'}>Productos</Link>
-              <Link to={'#'}>Marcas</Link>
-              <Link to={'#'}>Equipo</Link>
+              <Menu>
+                  <MenuButton className='menuButton-personal'>Marcas</MenuButton>
+                  <MenuList>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/stanley'}>Stanley</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/bahco'}>Bahco</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/bosch'}>Bosch</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/makita'}>Makita</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/generico'}>Genéricas</Link></MenuItem>
+                </MenuList>
+                </Menu>
             </Stack>
           </Box>
         ) : null}

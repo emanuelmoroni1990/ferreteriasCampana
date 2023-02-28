@@ -26,12 +26,12 @@ const ItemDetailContainer = () => {
         fetchData();
     }, []);
 
-    const herramientaFilter = herramientasData.filter((herramienta) => herramienta.id == 3);
+    const herramientaFilter = herramientasData.filter((herramienta) => herramienta.id == id);
     // Descomentar en caso de ser necesario realizar un debbuging.
-    console.log(herramientaFilter);
+    //console.log(herramientaFilter);
 
     return (
-        <ItemDetail nombre={herramientaFilter.nombre} descripcion={herramientaFilter.descripcion}></ItemDetail>
+        <ItemDetail herramienta={herramientaFilter}></ItemDetail>
     )
 }
 

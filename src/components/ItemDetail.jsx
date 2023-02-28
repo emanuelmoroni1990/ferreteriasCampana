@@ -1,32 +1,66 @@
+// Links de interés:
+// https://reactrouter.com/en/main/hooks/use-location
+
+import '../styles/style.css'
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react'
+import { Link, useLocation } from 'react-router-dom'
+import { Card, Button, CardBody, CardFooter, Heading, Text, Image, Stack, Box, Input, useNumberInput, Flex, Spacer } from '@chakra-ui/react'
 
-const ItemDetail = ({ nombre, categoria, subcategoria, descripcion }) => {
+const ItemDetail = ({ herramienta }) => {
 
-    // Ver el uso del hook useDisclosure en el desarrollo del navbar.
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
-    console.log(isOpen);
+    const location = useLocation();
+    // Descomentar para debbuging.
+    // console.log(location);
+    // console.log(herramienta);
+
+    const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+    useNumberInput({
+      step: 1,
+      defaultValue: 1,
+      min: 1,
+      max: herramienta[0].stock, // Esta propiedad dependerá de la cantidad de stock disponible.
+      precision: 0,
+    })
+
+  const inc = getIncrementButtonProps()
+  const dec = getDecrementButtonProps()
+  const input = getInputProps()
 
     return (
         <div>
-            <Modal isOpen={isOpen}>
-            <ModalOverlay />
-            <ModalContent>
-                <ModalHeader>{nombre}</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    {descripcion}
-                </ModalBody>
+            <Card direction={{ base: 'column', sm: 'row' }} overflow='hidden'  variant='outline' className='item-personal item-personal__margin'>
+                <Image
+                    objectFit='cover'
+                    maxW={{ base: '100%', sm: '300px' }}
+                    src={'../' + herramienta[0].imagen}
+                    borderRadius='lg'
+                />
+                <Stack>
+                    <CardBody>
+                    <Heading size='md'>{herramienta[0].nombre}</Heading>
 
-                <ModalFooter>
-                    <Button colorScheme='blue' mr={3} onClick={onClose}>
-                        <Link to="/ListadoProductos">Close</Link>
-                    </Button>
-                    <Button variant='ghost'>Secondary Action</Button>
-                </ModalFooter>
-            </ModalContent>
-            </Modal> 
+                    <Text py='2'>
+                        {herramienta[0].descripcion}
+                    </Text>
+                    </CardBody>
+
+                    <Flex>
+                        <Spacer></Spacer>
+                        <Box className='box-personal'>
+                            <Button {...inc} className='button-personal'>+</Button>
+                            <Input {...input} />
+                            <Button {...dec} className='button-personal'>-</Button>
+                        </Box>
+                        <Spacer></Spacer>
+                    </Flex>
+
+                    <CardFooter className='cardfooter-personal'>
+                        <Button variant='solid' colorScheme='blue' className='button-personal'>
+                            Comprar
+                        </Button>
+                    </CardFooter>
+                </Stack>
+            </Card>
         </div>
     )
 }

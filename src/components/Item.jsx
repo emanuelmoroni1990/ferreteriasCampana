@@ -7,7 +7,7 @@ import React from 'react'
 import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, Button, Box } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
-const Item = ({id, nombre, categoria, subcategoria, stock}) => {
+const Item = ({id, nombre, categoria, subcategoria, imagen, stock}) => {
 
     // Decomentar en caso de que sea necesario el debugging.
     // console.log(id);
@@ -19,7 +19,7 @@ const Item = ({id, nombre, categoria, subcategoria, stock}) => {
         <div key={id} className='item-personal'>
             <Card maxW='sm'>
                 <CardBody>
-                    <Image src='src/img/tools_1.jpg' alt='Foto de herramienta generica.' borderRadius='lg'/>
+                    <Image src={imagen} alt='Foto de herramienta generica.' borderRadius='lg'/>
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{nombre}</Heading>
                         <Text>Categoría: {categoria}</Text>

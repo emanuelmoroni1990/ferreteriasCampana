@@ -13,6 +13,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<LandingPage></LandingPage>}></Route>
           <Route exact path="/ListadoProductos" element={<ItemListContainer></ItemListContainer>}></Route>
+          <Route exact path="/MarcasProductos/:marca" element={<ItemListContainer></ItemListContainer>}></Route>
           <Route exact path="/item/:id" element={<ItemDetailContainer></ItemDetailContainer>}></Route>
         </Routes>
     </BrowserRouter>
