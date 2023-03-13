@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from './components/NavBar';
 import LandingPage from "./components/LandingPage";
 import ItemListContainer from "./components/ItemListContainer";
-import ItemDetail from "./components/ItemDetail";
 import ItemDetailContainer from "./components/ItemDetailContainer";
+import ItemUpload from "./components/ItemUpload";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
           <Route exact path="/ListadoProductos" element={<ItemListContainer></ItemListContainer>}></Route>
           <Route exact path="/MarcasProductos/:marca" element={<ItemListContainer></ItemListContainer>}></Route>
           <Route exact path="/item/:id" element={<ItemDetailContainer></ItemDetailContainer>}></Route>
+          <Route exact path="/UploadItems" element={<ItemUpload></ItemUpload>}></Route>
         </Routes>
     </BrowserRouter>
   )

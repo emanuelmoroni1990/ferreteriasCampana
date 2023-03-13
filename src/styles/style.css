@@ -103,6 +103,16 @@
     margin: 0.5rem;
 }
 
+/* Item upload - Sección de carga de items */
+
+.barra-progreso-personal{
+    background-color: var(--main-letter-color) !important;
+}
+
+.css-2d1p8c{
+    background-color: var(--main-color) !important;
+}
+
 @media (max-width: 767px){
 
     .pilaHorizontal-personal{
