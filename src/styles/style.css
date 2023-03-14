@@ -103,6 +103,17 @@
     margin: 0.5rem;
 }
 
+.personal-spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+}
+
+.chakra-spinner{
+    color: var(--main-color) !important;
+}
+
 /* Item upload - Sección de carga de items */
 
 .barra-progreso-personal{

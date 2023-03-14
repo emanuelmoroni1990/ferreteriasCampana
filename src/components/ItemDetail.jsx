@@ -3,14 +3,11 @@
 
 import '../styles/style.css'
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
 import { Card, Button, CardBody, CardFooter, Heading, Text, Image, Stack, Box, Input, useNumberInput, Flex, Spacer } from '@chakra-ui/react'
 
 const ItemDetail = ({ herramienta }) => {
 
-    const location = useLocation();
     // Descomentar para debbuging.
-    // console.log(location);
     // console.log(herramienta);
 
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
@@ -22,9 +19,9 @@ const ItemDetail = ({ herramienta }) => {
       precision: 0,
     })
 
-  const inc = getIncrementButtonProps()
-  const dec = getDecrementButtonProps()
-  const input = getInputProps()
+    const inc = getIncrementButtonProps();
+    const dec = getDecrementButtonProps();
+    const input = getInputProps();
 
     return (
         <div>
@@ -32,7 +29,8 @@ const ItemDetail = ({ herramienta }) => {
                 <Image
                     objectFit='cover'
                     maxW={{ base: '100%', sm: '300px' }}
-                    src={'../' + herramienta[0].imagen}
+                    // src={'../' + herramienta[0].imagen}
+                    src={"../src/img/tools_1.jpg"}
                     borderRadius='lg'
                 />
                 <Stack>

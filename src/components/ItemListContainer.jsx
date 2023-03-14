@@ -1,42 +1,56 @@
 // Links de interes:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise#return_value
 
-import herramientasData from '../data.json'
-import React from 'react';
+// import herramientasData from '../data.json'
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { Spinner } from '@chakra-ui/react'
 import ItemList from './ItemList';
 
 const ItemListContainer = () => {
-  // The useParams hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>. Child routes inherit all params from their parent routes.
-  const { marca } = useParams();
+    // The useParams hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>. Child routes inherit all params from their parent routes.
+    const { marca } = useParams();
 
-  const getData = () =>{
-    return new Promise ((resolve, reject) => {
-      if(herramientasData.length === null){
-        reject(new Error("Empty Data..."));
-      }
-      resolve(herramientasData);
-    });
-  }
+    const [herramientasData, setHerramientasData] = useState([]);
 
-  async function fetchingData() {
-    try {
-      const datos = await getData();
-    } catch (error) {
-      console.log(error);
-    }    
-  }
-  
-  fetchingData();
-  // console.log("Herramientas: " + herramientas);
+    // Nueva funcionalidad implentada con el uso de Firestore
+    useEffect(() => {
+      // Descomentar para debugging.
+      const db = getFirestore();
+      // console.log(db);
+      const coleccion = collection(db, "herramientasStock");
+      // console.log(coleccion);
+      getDocs(coleccion).then((snapshot) => {
+        const herramientasItem = snapshot.docs.map(doc => doc.data());
+        // console.log(herramientasItem);
+        setHerramientasData(herramientasItem);      
+        // console.log(herramientasData);
+      })
+      .catch((error) => console.log(error));
+    }, []);
 
-  const herramientaFilter = herramientasData.filter((herramienta) => herramienta.marca == marca);
+    // console.log(herramientasData);
 
-  return (
-    <div>
-      {marca ? <ItemList herramientas={herramientaFilter}></ItemList> : <ItemList herramientas={herramientasData}></ItemList>}
-    </div>
-  )
+    // Agrego el método de pasado a LowerCase en la marca para evitar problemas en la redirección en el path indicado.
+    return (
+      <div>
+        { 
+          (herramientasData.length == 0) ?
+            <div className='personal-spinner'>
+              <Spinner
+                  thickness='4px'
+                  speed='1.5s'
+                  emptyColor='gray.200'
+                  size='xl'
+              />
+            </div> :
+          marca ? 
+          <ItemList herramientas={herramientasData.filter((herramienta) => herramienta.marca.toLowerCase() == marca)}></ItemList> : 
+          <ItemList herramientas={herramientasData}></ItemList>         
+        }
+      </div>
+    )
 }
 
 export default ItemListContainer;

@@ -17,12 +17,13 @@ const ItemList = ({herramientas}) => {
     const listItems = herramientas.map
     (herramienta => 
         <Item 
-            key={herramienta.id} 
-            id={herramienta.id} 
+            key={herramientas.indexOf(herramienta)} // Aqui lo resuelvo dandole un key igual al número de cada elemento que mapeo.
+            id={herramientas.indexOf(herramienta)} 
             nombre={herramienta.nombre} 
             categoria={herramienta.categoria}
             subcategoria={herramienta.subcategoria}
-            imagen={herramienta.imagen} 
+            // imagen={herramienta.imagen} 
+            imagen={"../src/img/tools_1.jpg"}
             stock={herramienta.stock}>
         </Item>
     );

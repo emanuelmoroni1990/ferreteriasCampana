@@ -4,7 +4,7 @@
 
 import '../styles/style.css'
 import React from 'react'
-import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, Button, Box } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 const Item = ({id, nombre, categoria, subcategoria, imagen, stock}) => {
@@ -14,7 +14,6 @@ const Item = ({id, nombre, categoria, subcategoria, imagen, stock}) => {
     // console.log(nombre);
     // console.log(descripcion);
     // console.log(stock);
-
     return (
         <div key={id} className='item-personal'>
             <Card maxW='sm'>

@@ -90,6 +90,7 @@ const NavBar = () => {
               </MenuButton>
               <MenuList>
                 <MenuItem>Editar perfil</MenuItem>
+                <MenuItem><Link to={'/ItemUpload'}>Ingresar artículos</Link></MenuItem>
                 <MenuItem>Compras realizadas (5)</MenuItem>
                 <MenuDivider />
                 <MenuItem>Cerrar sesión</MenuItem>
