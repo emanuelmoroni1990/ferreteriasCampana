@@ -9,7 +9,7 @@
 import React, { useEffect, useState } from 'react'
 import { Progress, Box, Button, Heading, Flex, FormControl, FormLabel, Input, GridItem, Select } from '@chakra-ui/react';
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { getStorage, ref, listAll } from "firebase/storage";
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 // import ImageUpload from './ImageUpload'
  
 const cantidadCampos = 7;
@@ -18,26 +18,29 @@ const incrementoPorcentual = 100 / cantidadCampos;
 const ItemUpload = () => {
 
   const [coleccionDocs, setColeccionesDocs] = useState();
+  //const [refereciaStorage, setReferenciaStorage] = useState();
   const [imagenesHerramientas, setImagenesHerramientas] = useState([]);
 
+  // Este useEffect lo utilizo para listar todos los nombres de las imagenes disponibles para adjuntar al producto.
   useEffect(() => {
     const storage = getStorage();
     //console.log(storage);    
     const listRef = ref(storage, "/ImgHerramientas/");
     //console.log(listRef);
 
-    // Find all the prefixes and items.
+    // Aqui voy a listar todas las imagenes que estan cargadas en el storage de imagenes para articulos
     listAll(listRef)
-    .then((res) => {
-        const imagenesList = [];
-        res.items.forEach((itemRef) => {
-            // Primero armo el array con el nombre de los elementos
-            // console.log(itemRef.name);
-            imagenesList.push(itemRef.name);
-        });
-        setImagenesHerramientas(imagenesList);
-    }).catch((error) => { console.log(error);});
-  }, []);
+      .then((res) => {
+          const imagenesList = [];
+          res.items.forEach((itemRef) => {
+              // Primero armo el array con el nombre de los elementos
+              // console.log(itemRef.name);
+              imagenesList.push(itemRef.name);
+          });
+          setImagenesHerramientas(imagenesList);
+      }).catch((error) => { console.log(error);});
+
+    }, []);
 
   useEffect(() => {
     const db = getFirestore();
@@ -45,7 +48,7 @@ const ItemUpload = () => {
 
     // https://firebase.google.com/docs/reference/js/firestore_.md#collection
     setColeccionesDocs(collection(db, "herramientasStock"));
-    //console.log(coleccionDocs);
+    //console.log(coleccionDocs);      
   },[]);
 
   //#region EstadosCampos
@@ -181,13 +184,24 @@ const ItemUpload = () => {
     e.preventDefault();
   };
 
+  // Esta funcion sera la encargada de almacenar en el atributo de imagen, la direccion de acceso para ser utilizada en cada item.
   const handlerSeleccionImagen = (e) => {
+    const storage = getStorage();
+    //console.log(storage); 
+
     // En este caso no me hacen falta las banderas, porque no es un campo de texto que cambiará constantemente.
     if(e.target.value != ""){
       setProgress (progress + incrementoPorcentual);
-      setDireccionImagenHerramienta(e.target.value);
+
+      getDownloadURL(ref(storage, 'ImgHerramientas/' + e.target.value))
+        .then((url) => {
+          //console.log(url);
+          setDireccionImagenHerramienta(url);
+        })
+        .catch((error) => console.log(error));
+
       // Descomentar para debugging
-      console.log(e.target.value);
+      //console.log(e.target.value);
     }
     else{
       setProgress (progress - incrementoPorcentual);

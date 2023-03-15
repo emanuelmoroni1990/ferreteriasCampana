@@ -15,7 +15,7 @@ const ItemListContainer = () => {
     const [herramientasData, setHerramientasData] = useState([]);
 
     // Nueva funcionalidad implentada con el uso de Firestore
-    useEffect(() => {
+    useEffect(() => {      
       // Descomentar para debugging.
       const db = getFirestore();
       // console.log(db);
@@ -23,13 +23,14 @@ const ItemListContainer = () => {
       // console.log(coleccion);
       getDocs(coleccion).then((snapshot) => {
         const herramientasItem = snapshot.docs.map(doc => doc.data());
-        // console.log(herramientasItem);
+        console.log(herramientasItem);
+        
         setHerramientasData(herramientasItem);      
         // console.log(herramientasData);
       })
       .catch((error) => console.log(error));
     }, []);
-
+    
     // console.log(herramientasData);
 
     // Agrego el método de pasado a LowerCase en la marca para evitar problemas en la redirección en el path indicado.

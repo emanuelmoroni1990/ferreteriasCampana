@@ -29,8 +29,8 @@ const ItemDetail = ({ herramienta }) => {
                 <Image
                     objectFit='cover'
                     maxW={{ base: '100%', sm: '300px' }}
-                    // src={'../' + herramienta[0].imagen}
-                    src={"../src/img/tools_1.jpg"}
+                    src={herramienta[0].imagen}
+                    //src={"../src/img/tools_1.jpg"}
                     borderRadius='lg'
                 />
                 <Stack>

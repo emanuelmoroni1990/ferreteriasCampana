@@ -7,7 +7,7 @@ import React from 'react'
 import Item from './Item'
 
 const ItemList = ({herramientas}) => {
-    //console.log("ItemList herramientas: " + herramientas);
+    // console.log(herramientas);
 
     // El problema original que tenía eran las llaves colocadas en rededor del Item. ¿Es algo que cambió con la nueva versión beta?
     // Docs. Arrow functions implicitly return the expression right after =>, so you didn’t need a return statement:
@@ -15,15 +15,15 @@ const ItemList = ({herramientas}) => {
     // Arrow functions containing => { are said to have a “block body”. They let you write more than a single line of code, but you have to write a return statement yourself. If you forget it, nothing gets returned!
 
     const listItems = herramientas.map
-    (herramienta => 
+    (herramienta =>
         <Item 
             key={herramientas.indexOf(herramienta)} // Aqui lo resuelvo dandole un key igual al número de cada elemento que mapeo.
             id={herramientas.indexOf(herramienta)} 
             nombre={herramienta.nombre} 
             categoria={herramienta.categoria}
             subcategoria={herramienta.subcategoria}
-            // imagen={herramienta.imagen} 
-            imagen={"../src/img/tools_1.jpg"}
+            imagen={herramienta.imagen} 
+            // imagen={"../src/img/tools_1.jpg"}
             stock={herramienta.stock}>
         </Item>
     );

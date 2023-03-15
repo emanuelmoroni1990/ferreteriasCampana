@@ -17,7 +17,7 @@ const ImageUpload = () => {
         };
         const storage = getStorage();
         //console.log(storage);    
-        const storageRef = ref(storage, "/ImgHerramienta/" + e.target.files[0].name);
+        const storageRef = ref(storage, "/ImgHerramientas/" + e.target.files[0].name);
         console.log(storageRef);
 
         // Debo definir esto para que los archivos se almacenen como imagenes. https://firebase.google.com/docs/storage/web/upload-files#add_file_metadata
@@ -47,19 +47,6 @@ const ImageUpload = () => {
                 // Handle unsuccessful uploads
             }        
         );
-
-        const listRef = ref(storage, "/ImgHerramientas/");
-
-        // Find all the prefixes and items.
-        listAll(listRef)
-        .then((res) => {
-            res.items.forEach((itemRef) => {
-                console.log(itemRef.name)
-            // All the items under listRef.
-            });
-        }).catch((error) => {
-            // Uh-oh, an error occurred!
-        });
 
         e.preventDefault(); // prevent navigation to "#"
     }
