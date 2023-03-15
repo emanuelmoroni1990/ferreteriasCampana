@@ -7,24 +7,45 @@
 // mt -> margin-top; mr -> margin-right
 
 import React, { useEffect, useState } from 'react'
-
-import { Progress, Box, Button, Heading, Flex, FormControl, GridItem, FormLabel, Input, Select, SimpleGrid, InputLeftAddon, InputGroup, Textarea, FormHelperText, InputRightElement, useToast } from '@chakra-ui/react';
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc } from "firebase/firestore";
-
-const cantidadCampos = 6;
-const incrementoPorcentual = 100 / cantidadCampos;
+import { Progress, Box, Button, Heading, Flex, FormControl, FormLabel, Input, GridItem, Select } from '@chakra-ui/react';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, listAll } from "firebase/storage";
+// import ImageUpload from './ImageUpload'
  
+const cantidadCampos = 7;
+const incrementoPorcentual = 100 / cantidadCampos;
+
 const ItemUpload = () => {
 
   const [coleccionDocs, setColeccionesDocs] = useState();
+  const [imagenesHerramientas, setImagenesHerramientas] = useState([]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    //console.log(storage);    
+    const listRef = ref(storage, "/ImgHerramientas/");
+    //console.log(listRef);
+
+    // Find all the prefixes and items.
+    listAll(listRef)
+    .then((res) => {
+        const imagenesList = [];
+        res.items.forEach((itemRef) => {
+            // Primero armo el array con el nombre de los elementos
+            // console.log(itemRef.name);
+            imagenesList.push(itemRef.name);
+        });
+        setImagenesHerramientas(imagenesList);
+    }).catch((error) => { console.log(error);});
+  }, []);
 
   useEffect(() => {
     const db = getFirestore();
-    console.log(db);
+    // console.log(db);
 
     // https://firebase.google.com/docs/reference/js/firestore_.md#collection
     setColeccionesDocs(collection(db, "herramientasStock"));
-    console.log(coleccionDocs);
+    //console.log(coleccionDocs);
   },[]);
 
   //#region EstadosCampos
@@ -47,10 +68,12 @@ const ItemUpload = () => {
 
   const [BanderaSubCategoriaHerramienta, setBanderaSubCategoriaHerramienta] = useState(false);
   const [SubCategoriaHerramienta, setSubCategoriaHerramienta] = useState("");
+
+  const [DireccionImagenHerramienta, setDireccionImagenHerramienta] = useState("");
   //#endregion
 
   // Esta funcion sera la encargada de incrementar un contador de progreso para llenar la barra de carga de datos. Cuando este al 100% permitirá la carga en la base de datos.
-  const handleInput = (e) => {
+  const handlerInput = (e) => {
     let nombreId;
     // Descomentar para debbuging 
     // console.log(e.target.id);
@@ -157,7 +180,21 @@ const ItemUpload = () => {
     // No termino de comprender bien para que coloco el preventDefault
     e.preventDefault();
   };
+
+  const handlerSeleccionImagen = (e) => {
+    // En este caso no me hacen falta las banderas, porque no es un campo de texto que cambiará constantemente.
+    if(e.target.value != ""){
+      setProgress (progress + incrementoPorcentual);
+      setDireccionImagenHerramienta(e.target.value);
+      // Descomentar para debugging
+      console.log(e.target.value);
+    }
+    else{
+      setProgress (progress - incrementoPorcentual);
+    }
+  }
    
+  // Esta funcion sera la encargada de subir la informacion a la base de datos y reiniciar los campos en el componente.
   const handlerFirestore = () => {
     // console.log(NombreHerramienta);
     // console.log(MarcaHerramienta);
@@ -174,7 +211,8 @@ const ItemUpload = () => {
       "descripcion": DescripcionHerramienta,
       "stock": StockHerramienta,
       "categoria": CategoriaHerramienta,
-      "subcategoria": SubCategoriaHerramienta
+      "subcategoria": SubCategoriaHerramienta,
+      "imagen": DireccionImagenHerramienta,
     }
 
     // https://firebase.google.com/docs/reference/js/firestore_.md?hl=es-419#adddoc
@@ -185,17 +223,19 @@ const ItemUpload = () => {
         setStockHerramienta(0);
         setCategoriaHerramienta("");
         setSubCategoriaHerramienta("");
+        setDireccionImagenHerramienta("");
 
         setBanderaNombreHerramienta(false);
         setBanderaMarcaHerramienta(false);
         setBanderaDescripcionHerramienta(false);
-        setBanderaStockHerramienta(false);
+        setBanderaStockHerramienta(0);
         setBanderaCategoriaHerramienta(false);
         setBanderaSubCategoriaHerramienta(false);
 
         setProgress(0);
 
-        console.log("Pasé por aquí..."); }
+        // console.log("Pasé por aquí..."); 
+      }
     ).catch((error) => console.log(error))
   }
 
@@ -218,14 +258,14 @@ const ItemUpload = () => {
                   <FormLabel htmlFor="nombre-herramienta" fontWeight={'normal'}>
                     Nombre de herramienta
                   </FormLabel>
-                  <Input id="nombre-herramienta" placeholder="Herramienta" value={NombreHerramienta} onInput={handleInput}/>
+                  <Input id="nombre-herramienta" placeholder="Herramienta" value={NombreHerramienta} onInput={handlerInput}/>
                 </FormControl>
 
                 <FormControl>
                   <FormLabel htmlFor="marca-herramienta" fontWeight={'normal'}>
                     Marca
                   </FormLabel>
-                  <Input id="marca-herramienta" placeholder="Marca" value={MarcaHerramienta} onInput={handleInput}/>
+                  <Input id="marca-herramienta" placeholder="Marca" value={MarcaHerramienta} onInput={handlerInput}/>
                 </FormControl>
               </Flex>
 
@@ -233,7 +273,7 @@ const ItemUpload = () => {
                 <FormLabel htmlFor="descripcion-herramienta" fontWeight={'normal'}>
                   Descripción
                 </FormLabel>
-                <Input id="descripcion-herramienta" type="text" value={DescripcionHerramienta} onInput={handleInput}/>
+                <Input id="descripcion-herramienta" type="text" value={DescripcionHerramienta} onInput={handlerInput}/>
               </FormControl>
 
               <Flex mt="1%">
@@ -241,34 +281,64 @@ const ItemUpload = () => {
                   <FormLabel htmlFor="stock-herramienta" fontWeight={'normal'} mt="2%">
                     Cantidad stock
                   </FormLabel>
-                  <Input id="stock-herramienta" placeholder="Stock" type="number" value={StockHerramienta} onInput={handleInput}/>
+                  <Input id="stock-herramienta" placeholder="Stock" type="number" value={StockHerramienta} onInput={handlerInput}/>
                 </FormControl>
 
                 <FormControl mr="5%">
                   <FormLabel htmlFor="categoria-herramienta" fontWeight={'normal'} mt="2%">
                     Categoría
                   </FormLabel>
-                  <Input id="categoria-herramienta" placeholder="Categoría" value={CategoriaHerramienta} onInput={handleInput}/>
+                  <Input id="categoria-herramienta" placeholder="Categoría" value={CategoriaHerramienta} onInput={handlerInput}/>
                 </FormControl>
 
                 <FormControl>
                   <FormLabel htmlFor="subcategoria-herramienta" fontWeight={'normal'} mt="2%">
                     Subcategoría
                   </FormLabel>
-                  <Input id="subcategoria-herramienta" placeholder="Subtegoría" value={SubCategoriaHerramienta} onInput={handleInput}/>
+                  <Input id="subcategoria-herramienta" placeholder="Subtegoría" value={SubCategoriaHerramienta} onInput={handlerInput}/>
                 </FormControl>
               </Flex>              
             </div>
 
             {/* Boton de confirmacion de carga de datos. Aquí debo habilitar o verificar dependiendo que este, o no, toda la informacion */}
-            <Flex w="100%" justifyContent="space-between" mt="5%">
+            <Flex w="100%" justifyContent="space-between" mt="5%" className='flex-personal'>
+              <FormControl as={GridItem} colSpan={[6, 3]} className="form-imagen-personal">
+                <FormLabel
+                  htmlFor="country"
+                  fontSize="sm"
+                  fontWeight="md"
+                  color="gray.700"
+                  _dark={{
+                    color: 'gray.50',
+                  }}>
+                  Imagen de presentación
+                </FormLabel>
+                <Select
+                  id="country"
+                  name="country"
+                  autoComplete="country"
+                  placeholder="Seleccione una imagen"
+                  focusBorderColor="brand.400"
+                  shadow="sm"
+                  size="sm"
+                  w="full"
+                  rounded="md"
+                  className='select-personal'
+                  onChange={handlerSeleccionImagen}>
+                  {
+                    imagenesHerramientas.map(
+                      imagen => <option key={imagenesHerramientas.indexOf(imagen)}>{imagen}</option>
+                    )
+                  }
+                </Select>
+              </FormControl>              
               <Button
                   w="7rem"
                   colorScheme="teal"
                   variant="outline"
                   isDisabled={!(progress >= (cantidadCampos * incrementoPorcentual))}
                   onClick={handlerFirestore}
-                  className='button-personal'
+                  className='button-personal button-personal__submit'
               >
                 Subir Datos
               </Button>

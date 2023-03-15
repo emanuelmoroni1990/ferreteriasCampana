@@ -5,6 +5,7 @@ import LandingPage from "./components/LandingPage";
 import ItemListContainer from "./components/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 import ItemUpload from "./components/ItemUpload";
+import ImageUpload from "./components/ImageUpload";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/MarcasProductos/:marca" element={<ItemListContainer></ItemListContainer>}></Route>
           <Route exact path="/item/:id" element={<ItemDetailContainer></ItemDetailContainer>}></Route>
           <Route exact path="/ItemUpload" element={<ItemUpload></ItemUpload>}></Route>
+          <Route exact path="/ImageUpload" element={<ImageUpload></ImageUpload>}></Route>
         </Routes>
     </BrowserRouter>
   )

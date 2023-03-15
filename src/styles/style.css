@@ -124,6 +124,23 @@
     background-color: var(--main-color) !important;
 }
 
+.flex-personal{
+    align-items: center !important;
+}
+
+.form-imagen-personal{
+    display: flex;
+    align-items: center;
+}
+
+.button-personal__submit{
+    margin-left: 1rem;
+}
+
+.select-personal{
+    height: 2.5rem !important;
+}
+
 @media (max-width: 767px){
 
     .pilaHorizontal-personal{
