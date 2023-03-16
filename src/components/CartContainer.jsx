@@ -7,7 +7,6 @@ import { Text, Divider, Stack, Button } from '@chakra-ui/react'
 const CartContainer = () => {
 
     const {cart, setCart} = useContext(CartContext);
-    const [valorTotal, setValorTotal] = useState(0);
     // console.log("Elementos carrito: ");
     // console.log(cart);
     
@@ -25,6 +24,13 @@ const CartContainer = () => {
         </Cart>
     );
 
+    var precioTotal = 0; 
+    for(var i = 0; i < cart.length; i++)
+    {
+        precioTotal += (parseFloat(cart[i].precio) * parseInt(cart[i].cantidad));
+    }
+    console.log(precioTotal);
+
     return (
         <div>
             <Text fontSize='2xl' mt="2%" className='box-personal'>Carrito de compras</Text>
@@ -35,7 +41,7 @@ const CartContainer = () => {
                     direction={{ base: 'column', md: 'row' }}
                     justifyContent="flex-end"
                     className="stack-personal">
-                    <Text fontWeight="semibold">Precio total: ${valorTotal}</Text>
+                    <Text fontWeight="semibold">Precio total: ${precioTotal}</Text>
                 </Stack>
                 <Divider/>
                 <Stack
