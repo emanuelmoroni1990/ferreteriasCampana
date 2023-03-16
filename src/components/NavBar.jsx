@@ -13,12 +13,15 @@
 // Imagenes: unsplash, flaticon
 
 import '../styles/style.css'
-import React from 'react';
+import React , { useContext }from 'react';
+import { CartContext } from '../context/ShoppingCartContext'
 import { Link } from 'react-router-dom'
 import { Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
 const NavBar = () => {
+
+  const {cart, setCart} = useContext(CartContext);
 
   // useDisclosure is a custom hook used to help handle common open, close, or toggle scenarios. It can be used to control feedback component such as Modal, AlertDialog, Drawer, etc.
   // The useDisclosure hook returns an object with the following fields:
@@ -91,7 +94,7 @@ const NavBar = () => {
               <MenuList>
                 <MenuItem>Editar perfil</MenuItem>
                 <MenuItem><Link to={'/ItemUpload'}>Ingresar artículos</Link></MenuItem>
-                <MenuItem>Compras realizadas (5)</MenuItem>
+                <MenuItem><Link to={'/Cart'}>Compras realizadas: {cart.length}</Link></MenuItem>
                 <MenuDivider />
                 <MenuItem>Cerrar sesión</MenuItem>
               </MenuList>

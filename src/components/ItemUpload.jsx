@@ -7,15 +7,17 @@
 // mt -> margin-top; mr -> margin-right
 
 import React, { useEffect, useState } from 'react'
-import { Progress, Box, Button, Heading, Flex, FormControl, FormLabel, Input, GridItem, Select } from '@chakra-ui/react';
+import { Progress, Box, Button, Heading, Flex, FormControl, FormLabel, Input, GridItem, Select, useToast } from '@chakra-ui/react';
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 // import ImageUpload from './ImageUpload'
  
-const cantidadCampos = 7;
+const cantidadCampos = 8;
 const incrementoPorcentual = 100 / cantidadCampos;
 
 const ItemUpload = () => {
+
+  const toast = useToast();
 
   const [coleccionDocs, setColeccionesDocs] = useState();
   //const [refereciaStorage, setReferenciaStorage] = useState();
@@ -60,11 +62,14 @@ const ItemUpload = () => {
   const [BanderaMarcaHerramienta, setBanderaMarcaHerramienta] = useState(false);
   const [MarcaHerramienta, setMarcaHerramienta] = useState("");
 
+  const [BanderaPrecioHerramienta, setBanderaPrecioHerramienta] = useState(false);
+  const [PrecioHerramienta, setPrecioHerramienta] = useState("");
+
   const [BanderaDescripcionHerramienta, setBanderaDescripcionHerramienta] = useState(false);
   const [DescripcionHerramienta, setDescripcionHerramienta] = useState("");
 
   const [BanderaStockHerramienta, setBanderaStockHerramienta] = useState(false);
-  const [StockHerramienta, setStockHerramienta] = useState(); 
+  const [StockHerramienta, setStockHerramienta] = useState(""); 
 
   const [BanderaCategoriaHerramienta, setBanderaCategoriaHerramienta] = useState(false);
   const [CategoriaHerramienta, setCategoriaHerramienta] = useState("");
@@ -113,6 +118,22 @@ const ItemUpload = () => {
           }          
         }
         setMarcaHerramienta(e.target.value);
+        break;
+
+      case "precio-herramienta":
+        if(!BanderaPrecioHerramienta){
+          if(e.target.value != ""){
+            setProgress (progress + incrementoPorcentual);
+          }
+          setBanderaPrecioHerramienta(true);
+        }
+        else{
+          if (e.target.value == ""){
+            setProgress (progress - incrementoPorcentual);
+            setBanderaPrecioHerramienta(false);
+          }          
+        }
+        setPrecioHerramienta(e.target.value);
         break;
 
       case "descripcion-herramienta":
@@ -227,6 +248,7 @@ const ItemUpload = () => {
       "categoria": CategoriaHerramienta,
       "subcategoria": SubCategoriaHerramienta,
       "imagen": DireccionImagenHerramienta,
+      "precio": PrecioHerramienta,
     }
 
     // https://firebase.google.com/docs/reference/js/firestore_.md?hl=es-419#adddoc
@@ -234,23 +256,43 @@ const ItemUpload = () => {
         setNombreHerramienta("");
         setMarcaHerramienta("");
         setDescripcionHerramienta("");
-        setStockHerramienta(0);
+        setStockHerramienta("");
         setCategoriaHerramienta("");
         setSubCategoriaHerramienta("");
         setDireccionImagenHerramienta("");
+        setPrecioHerramienta("");
 
         setBanderaNombreHerramienta(false);
         setBanderaMarcaHerramienta(false);
         setBanderaDescripcionHerramienta(false);
-        setBanderaStockHerramienta(0);
+        setBanderaStockHerramienta(false);
         setBanderaCategoriaHerramienta(false);
         setBanderaSubCategoriaHerramienta(false);
+        setBanderaPrecioHerramienta(false);
 
         setProgress(0);
 
+        toast({
+          title: 'Carga exitosa.',
+          description: "La información del producto de cargo correctamente en la base de datos.",
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
         // console.log("Pasé por aquí..."); 
       }
-    ).catch((error) => console.log(error))
+    ).catch((error) => {
+
+      toast({
+          title: 'Carga no exitosa.',
+          description: "La información del producto no se pudo cargar en la base de datos.",
+          status: 'error',
+          duration: 300,
+          isClosable: true,
+        });
+
+      console.log(error);}
+    )
   }
 
   return (
@@ -275,11 +317,18 @@ const ItemUpload = () => {
                   <Input id="nombre-herramienta" placeholder="Herramienta" value={NombreHerramienta} onInput={handlerInput}/>
                 </FormControl>
 
-                <FormControl>
+                <FormControl mr="5%">
                   <FormLabel htmlFor="marca-herramienta" fontWeight={'normal'}>
                     Marca
                   </FormLabel>
                   <Input id="marca-herramienta" placeholder="Marca" value={MarcaHerramienta} onInput={handlerInput}/>
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel htmlFor="marca-herramienta" fontWeight={'normal'}>
+                    Precio unitario
+                  </FormLabel>
+                  <Input id="precio-herramienta" placeholder="Precio unitario" type="number" value={PrecioHerramienta} onInput={handlerInput}/>
                 </FormControl>
               </Flex>
 

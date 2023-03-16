@@ -141,6 +141,13 @@
     height: 2.5rem !important;
 }
 
+/* Carrito de compras */
+
+.stack-personal{
+    display: flex;
+    align-items: center !important;
+}
+
 @media (max-width: 767px){
 
     .pilaHorizontal-personal{
