@@ -13,7 +13,7 @@ const ItemDetail = ({ herramienta }) => {
     // console.log(herramienta);
     const toast = useToast();
 
-    const {cart, setCart} = useContext(CartContext);
+    const {cart, setCart, usuarioConectado, setUsuarioConectado} = useContext(CartContext);
     const [cantidadCompra, setCantidadCompra] = useState(1);
 
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
@@ -40,27 +40,39 @@ const ItemDetail = ({ herramienta }) => {
 
     const handlerSeleccionCompra = () => {
         console.log(cantidadCompra);
-        // Primero armo un nuevo objeto de datos para presentar en la tarjeta de compra
-        const auxObjeto = {
-            nombre: herramienta[0].nombre,
-            marca: herramienta[0].marca,
-            descripcion: herramienta[0].descripcion,
-            cantidad: cantidadCompra,
-            precio: herramienta[0].precio,
-        };
+        if(usuarioConectado){
+            // Primero armo un nuevo objeto de datos para presentar en la tarjeta de compra
+            const auxObjeto = {
+                nombre: herramienta[0].nombre,
+                marca: herramienta[0].marca,
+                descripcion: herramienta[0].descripcion,
+                cantidad: cantidadCompra,
+                precio: herramienta[0].precio,
+            };
 
-        // Luego actualizo la información en el contexto de trabajo
-        // A JavaScript spread operator is a suitable option for easily providing you with the combining arrays. These are used to add the item to the array in React state.
-        setCart([...cart, auxObjeto]);
+            // Luego actualizo la información en el contexto de trabajo
+            // A JavaScript spread operator is a suitable option for easily providing you with the combining arrays. These are used to add the item to the array in React state.
+            setCart([...cart, auxObjeto]);
 
-        // Muestro un pequeño toast indicando que la tarea fue exitosa
-        toast({
-          title: 'Selección exitosa.',
-          description: "La información del producto que quiere comprar se actualizo.",
-          status: 'info',
-          duration: 3000,
-          isClosable: true,
-        })
+            // Muestro un pequeño toast indicando que la tarea fue exitosa
+            toast({
+            title: 'Selección exitosa.',
+            description: "La información del producto que quiere comprar se actualizo.",
+            status: 'info',
+            duration: 3000,
+            isClosable: true,
+            })
+        }
+        else{
+            // Muestro un pequeño toast indicando que la tarea fue exitosa
+            toast({
+            title: 'Ingrese al sistema.',
+            description: "Para poder realizar compras debe loguearse en el sistema.",
+            status: 'warning',
+            duration: 3000,
+            isClosable: true,
+            })
+        }        
     }
 
     return (

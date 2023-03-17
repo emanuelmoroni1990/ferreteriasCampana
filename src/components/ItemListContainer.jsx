@@ -22,6 +22,7 @@ const ItemListContainer = () => {
       const coleccion = collection(db, "herramientasStock");
       // console.log(coleccion);
       getDocs(coleccion).then((snapshot) => {
+        // snapshot.docs.forEach(docs => console.log(docs.id)); // Con esta línea obtengo los IDs de cada uno de los elementos de la coleccion.
         const herramientasItem = snapshot.docs.map(doc => doc.data());
         console.log(herramientasItem);
         

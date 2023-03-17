@@ -9,19 +9,55 @@
 // useDisclousure hook: https://chakra-ui.com/docs/hooks/use-disclosure
 // https://stackoverflow.com/questions/70159125/how-do-i-show-a-modal-box-on-page-load-using-chakra-ui
 
+// Firebase Authentication
+// https://firebase.google.com/docs/auth/web/password-auth#next_steps
+
 
 // Imagenes: unsplash, flaticon
 
 import '../styles/style.css'
-import React , { useContext }from 'react';
+import React , { useState, useContext }from 'react';
 import { CartContext } from '../context/ShoppingCartContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 const NavBar = () => {
 
-  const {cart, setCart} = useContext(CartContext);
+  const {cart, setCart, usuarioConectado, setUsuarioConectado, adminConectado, setAdminConectado} = useContext(CartContext);
+
+  const auth = getAuth();  
+  const navigate = useNavigate();
+
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/firebase.User
+  //     const uid = user.uid;
+  //     console.log("hay usuario...")
+  //     console.log(user);
+  //     setUsuarioConectado(true);
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
+
+  const handlerCierreSesion = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      // Cualquiera de los dos tipos de usuarios que este logueado, al momento de salir, es igual.
+      setAdminConectado(false);
+      setUsuarioConectado(false);
+      navigate("/");
+
+    }).catch((error) => {
+      // An error happened.
+      console.log(error);
+    });
+  }
 
   // useDisclosure is a custom hook used to help handle common open, close, or toggle scenarios. It can be used to control feedback component such as Modal, AlertDialog, Drawer, etc.
   // The useDisclosure hook returns an object with the following fields:
@@ -77,28 +113,71 @@ const NavBar = () => {
           <Flex alignItems={'center'}>
             {/* Este boton por el momentos no tiene utilidad, de manera que lo dejo comentado. Ver su aplicacion en etapas posteriores del proyecto. */}
             {/* <Button variant={'solid'} colorScheme={'teal'} size={'sm'} mr={4} leftIcon={<AddIcon/>}>Action</Button> */}
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                minW={0}>
-                <Avatar
-                  size={'md'}
-                  src={
-                    '../src/img/icons/profile.png'
-                  }
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Editar perfil</MenuItem>
-                <MenuItem><Link to={'/ItemUpload'}>Ingresar artículos</Link></MenuItem>
-                <MenuItem><Link to={'/Cart'}>Compras realizadas: {cart.length}</Link></MenuItem>
-                <MenuDivider />
-                <MenuItem>Cerrar sesión</MenuItem>
-              </MenuList>
-            </Menu>
+            { adminConectado ? 
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                  <Avatar
+                    size={'md'}
+                    src={
+                      '../src/img/icons/profile_logueado.png'
+                    }
+                  />
+                </MenuButton>
+                <MenuList>
+                  {/* <MenuItem>Editar perfil</MenuItem> */}
+                  <MenuItem><Link to={'/ItemUpload'}>Ingresar artículos</Link></MenuItem>
+                  <MenuItem><Link to={'/ImageUpload'}>Ingresar imágenes</Link></MenuItem>
+                  <MenuDivider />
+                  <MenuItem onClick={handlerCierreSesion}>Cerrar sesión</MenuItem>
+                </MenuList>
+              </Menu> :
+              usuarioConectado ? 
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                  <Avatar
+                    size={'md'}
+                    src={
+                      '../src/img/icons/profile_logueado.png'
+                    }
+                  />
+                </MenuButton>
+                <MenuList>
+                  {/* <MenuItem>Editar perfil</MenuItem> */}
+                  {/* <MenuItem><Link to={'/ItemUpload'}>Ingresar artículos</Link></MenuItem> */}
+                  <MenuItem><Link to={'/Cart'}>Compras realizadas: {cart.length}</Link></MenuItem>
+                  <MenuDivider />
+                  <MenuItem onClick={handlerCierreSesion}>Cerrar sesión</MenuItem>
+                </MenuList>
+              </Menu> :
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                  <Avatar
+                    size={'md'}
+                    src={
+                      '../src/img/icons/profile_no_logueado.png'
+                    }
+                  />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem><Link to={'/LogIn'}>LogIn / SignUp</Link></MenuItem>
+                </MenuList>
+              </Menu>
+            }
           </Flex>
         </Flex>
 

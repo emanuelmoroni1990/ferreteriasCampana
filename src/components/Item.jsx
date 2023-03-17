@@ -3,11 +3,14 @@
 // https://github.com/facebook/react/issues/23347
 
 import '../styles/style.css'
-import React from 'react'
+import React, { useContext } from 'react'
+import { CartContext } from '../context/ShoppingCartContext'
 import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 const Item = ({id, nombre, categoria, subcategoria, imagen, stock}) => {
+    
+    const {usuarioConectado, adminConectado} = useContext(CartContext);
 
     // Decomentar en caso de que sea necesario el debugging.
     // console.log(id);
@@ -28,10 +31,24 @@ const Item = ({id, nombre, categoria, subcategoria, imagen, stock}) => {
                 </CardBody>
                 <Divider />
                 <CardFooter className='cardfooter-personal'>
-                    <Button variant='solid' className='button-personal'>
-                        {/* Para que aquí pueda emplear el id como un parámetro, debo emplear las comillas inclinadas hacia la izquierda */}
-                        <Link to={`/item/${id}`}>Detalles</Link>
-                    </Button>                             
+                    {
+                        adminConectado ?
+                        <Stack direction={{ base: 'column', md: 'row' }} >
+                            <Button variant="outline" colorScheme="green" mr="3%">
+                                Editar
+                            </Button>
+                            <Button colorScheme="red">Eliminar</Button>
+                        </Stack> : 
+                        usuarioConectado ?
+                        <Button variant='solid' className='button-personal'>
+                            {/* Para que aquí pueda emplear el id como un parámetro, debo emplear las comillas inclinadas hacia la izquierda */}
+                            <Link to={`/item/${id}`}>Detalles</Link>
+                        </Button> :
+                        <Button variant='solid' className='button-personal'>
+                            {/* Para que aquí pueda emplear el id como un parámetro, debo emplear las comillas inclinadas hacia la izquierda */}
+                            <Link to={`/item/${id}`}>Detalles</Link>
+                        </Button>
+                    }                                                
                 </CardFooter>
             </Card>
         </div>
