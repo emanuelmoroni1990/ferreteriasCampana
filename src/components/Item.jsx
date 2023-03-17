@@ -8,7 +8,7 @@ import { CartContext } from '../context/ShoppingCartContext'
 import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
-const Item = ({id, nombre, categoria, subcategoria, imagen, stock}) => {
+const Item = ({idNumber, nombre, categoria, subcategoria, imagen, stock}) => {
     
     const {usuarioConectado, adminConectado} = useContext(CartContext);
 
@@ -18,7 +18,7 @@ const Item = ({id, nombre, categoria, subcategoria, imagen, stock}) => {
     // console.log(descripcion);
     // console.log(stock);
     return (
-        <div key={id} className='item-personal'>
+        <div key={idNumber} className='item-personal'>
             <Card maxW='sm'>
                 <CardBody>
                     <Image src={imagen} alt='Foto de herramienta generica.' borderRadius='lg'/>
@@ -42,11 +42,11 @@ const Item = ({id, nombre, categoria, subcategoria, imagen, stock}) => {
                         usuarioConectado ?
                         <Button variant='solid' className='button-personal'>
                             {/* Para que aquí pueda emplear el id como un parámetro, debo emplear las comillas inclinadas hacia la izquierda */}
-                            <Link to={`/item/${id}`}>Detalles</Link>
+                            <Link to={`/item/${idNumber}`}>Detalles</Link>
                         </Button> :
                         <Button variant='solid' className='button-personal'>
                             {/* Para que aquí pueda emplear el id como un parámetro, debo emplear las comillas inclinadas hacia la izquierda */}
-                            <Link to={`/item/${id}`}>Detalles</Link>
+                            <Link to={`/item/${idNumber}`}>Detalles</Link>
                         </Button>
                     }                                                
                 </CardFooter>

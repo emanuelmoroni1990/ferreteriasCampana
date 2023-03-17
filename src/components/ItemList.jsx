@@ -18,7 +18,7 @@ const ItemList = ({herramientas}) => {
     (herramienta =>
         <Item 
             key={herramientas.indexOf(herramienta)} // Aqui lo resuelvo dandole un key igual al número de cada elemento que mapeo.
-            id={herramientas.indexOf(herramienta)} 
+            idNumber={herramientas.indexOf(herramienta)} 
             nombre={herramienta.nombre} 
             categoria={herramienta.categoria}
             subcategoria={herramienta.subcategoria}

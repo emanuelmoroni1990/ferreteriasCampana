@@ -12,7 +12,7 @@ import ItemDetail from './ItemDetail';
 
 const ItemDetailContainer = () => {
     // The useParams hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>. Child routes inherit all params from their parent routes.
-    const { id } = useParams();
+    const { idNumber } = useParams();
 
     const [herramientaData, setHerramientaData] = useState([]);
 
@@ -24,10 +24,23 @@ const ItemDetailContainer = () => {
         const coleccion = collection(db, "herramientasStock");
         // console.log(coleccion);
         getDocs(coleccion).then((snapshot) => {
-            const herramientasItem = snapshot.docs.map(doc => doc.data());
-            //console.log(herramientasItem);
+            // snapshot.docs.forEach(docs => console.log(docs.id)); // Con esta línea obtengo los IDs de cada uno de los elementos de la coleccion.
+            const herramientasItem = snapshot.docs.map(
+                (doc) => ({
+                    "id": doc.id, // Este id va a ser el generado por Firestore al momento de crear cada nuevo documento
+                    "categoria": doc.data().categoria,
+                    "descripcion": doc.data().descripcion,
+                    "imagen": doc.data().imagen,
+                    "marca": doc.data().marca,
+                    "nombre": doc.data().nombre,
+                    "precio": doc.data().precio,
+                    "stock": doc.data().stock,
+                    "subcategoria": doc.data().subcategoria
+                })                    
+                );
+            // console.log(herramientasItem);
             setHerramientaData(herramientasItem);
-            //console.log(herramientaData);
+            // console.log(herramientaData);
         })
         .catch((error) => console.log(error));
     }, []);
@@ -39,7 +52,7 @@ const ItemDetailContainer = () => {
         <div>
             {
                 (herramientaData.length > 0) ?
-                <ItemDetail herramienta={herramientaData.filter((herramienta) => herramientaData.indexOf(herramienta) == id)}></ItemDetail> :
+                <ItemDetail herramienta={herramientaData.filter((herramienta) => herramientaData.indexOf(herramienta) == idNumber)}></ItemDetail> :
                 // Este spinner de carga lo tengo que poner porque al momento de levantar el estado de herramientaData siempre es vacío. Esto me rompe el ItemDetail.
                 // Una vez actualizado el estado, paso el parámetro con toda la información necesaria.
                 <div className='personal-spinner'>
