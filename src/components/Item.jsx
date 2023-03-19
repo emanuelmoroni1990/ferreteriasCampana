@@ -3,14 +3,31 @@
 // https://github.com/facebook/react/issues/23347
 
 import '../styles/style.css'
-import React, { useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { CartContext } from '../context/ShoppingCartContext'
 import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, Button } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
-const Item = ({idNumber, nombre, categoria, subcategoria, imagen, stock}) => {
+const Item = ({idNumber, id, nombre, categoria, subcategoria, imagen, stock}) => {
     
     const {usuarioConectado, adminConectado} = useContext(CartContext);
+    const [documentoUnicoRef, setDocumentoUnicoRef] = useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const db = getFirestore();
+        // El id que paso como parámetro es único y es generado automaticamnete cada vez que se crea un nuevo documento.
+        setDocumentoUnicoRef(doc(db, "herramientasStock", id));
+    },[]);
+
+    const handlerDeleteHerramientaFirestore = () => {
+        deleteDoc(documentoUnicoRef).then(() => {
+            console.log("elemento eliminado");
+            navigate(0);    
+        }
+        ).catch((error) => console.log(error));    
+    }
 
     // Decomentar en caso de que sea necesario el debugging.
     // console.log(id);
@@ -34,10 +51,10 @@ const Item = ({idNumber, nombre, categoria, subcategoria, imagen, stock}) => {
                     {
                         adminConectado ?
                         <Stack direction={{ base: 'column', md: 'row' }} >
-                            <Button variant="outline" colorScheme="green" mr="3%">
+                            {/* <Button variant="outline" colorScheme="green" mr="3%">
                                 Editar
-                            </Button>
-                            <Button colorScheme="red">Eliminar</Button>
+                            </Button> */}
+                            <Button colorScheme="red" onClick={handlerDeleteHerramientaFirestore}>Eliminar</Button>
                         </Stack> : 
                         usuarioConectado ?
                         <Button variant='solid' className='button-personal'>

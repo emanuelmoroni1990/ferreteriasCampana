@@ -16,7 +16,7 @@
 // Imagenes: unsplash, flaticon
 
 import '../styles/style.css'
-import React , { useState, useContext }from 'react';
+import React , { useState, useEffect, useContext }from 'react';
 import { CartContext } from '../context/ShoppingCartContext'
 import { Link, useNavigate } from 'react-router-dom'
 import { Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack } from '@chakra-ui/react';
@@ -27,30 +27,42 @@ const NavBar = () => {
 
   const {cart, setCart, usuarioConectado, setUsuarioConectado, adminConectado, setAdminConectado} = useContext(CartContext);
 
+  console.log(usuarioConectado);
+  console.log(adminConectado);
+
   const auth = getAuth();  
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     // User is signed in, see docs for a list of available properties
-  //     // https://firebase.google.com/docs/reference/js/firebase.User
-  //     const uid = user.uid;
-  //     console.log("hay usuario...")
-  //     console.log(user);
-  //     setUsuarioConectado(true);
-  //     // ...
-  //   } else {
-  //     // User is signed out
-  //     // ...
-  //   }
-  // });
-
+  // Repasar esto... 19/03/2023
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       // User is signed in, see docs for a list of available properties
+  //       // https://firebase.google.com/docs/reference/js/firebase.User
+  //       const uid = user.uid;
+  //       console.log("hay usuario...")
+  //       console.log(user);
+  //       // setUsuarioConectado(true);
+  //       setUsuarioConectado(window.localStorage.getItem("usuarioConectado"));
+  //       setAdminConectado(window.localStorage.getItem("adminConectado"));
+  //       // ...
+  //     } else {
+  //       // User is signed out
+  //       // ...
+  //     }
+  //   });    
+  //   // console.log(usuarioConectado);
+  //   // console.log(adminConectado);
+  // },[]);  
+  
   const handlerCierreSesion = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
       // Cualquiera de los dos tipos de usuarios que este logueado, al momento de salir, es igual.
       setAdminConectado(false);
       setUsuarioConectado(false);
+      window.localStorage.setItem("usuarioConectado", false);
+      window.localStorage.setItem("adminConectado", false);
       navigate("/");
 
     }).catch((error) => {

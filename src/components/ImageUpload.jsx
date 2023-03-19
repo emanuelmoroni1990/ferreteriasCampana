@@ -4,6 +4,7 @@
 // https://stackoverflow.com/questions/62050827/firebase-web-storage-list-api-get-item-name
 
 import React from 'react'
+import '../styles/style.css'
 import { getStorage, ref, uploadBytesResumable, listAll } from "firebase/storage";
 
 const ImageUpload = () => {
@@ -52,7 +53,9 @@ const ImageUpload = () => {
     }
 
     return (
-        <input type="file" id="input" multiple onChange={handlerCargaImagen}/>
+        <div className='input-personal'>
+            <input type="file" id="input" multiple onChange={handlerCargaImagen}/>
+        </div>        
     )
 }
 

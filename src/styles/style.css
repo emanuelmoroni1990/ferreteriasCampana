@@ -148,6 +148,17 @@
     align-items: center !important;
 }
 
+/* */
+
+.input-personal{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
 @media (max-width: 767px){
 
     .pilaHorizontal-personal{

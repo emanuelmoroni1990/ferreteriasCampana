@@ -23,9 +23,20 @@ const ItemListContainer = () => {
       // console.log(coleccion);
       getDocs(coleccion).then((snapshot) => {
         // snapshot.docs.forEach(docs => console.log(docs.id)); // Con esta línea obtengo los IDs de cada uno de los elementos de la coleccion.
-        const herramientasItem = snapshot.docs.map(doc => doc.data());
-        console.log(herramientasItem);
-        
+        const herramientasItem = snapshot.docs.map(
+                (doc) => ({
+                    "id": doc.id, // Este id va a ser el generado por Firestore al momento de crear cada nuevo documento
+                    "categoria": doc.data().categoria,
+                    "descripcion": doc.data().descripcion,
+                    "imagen": doc.data().imagen,
+                    "marca": doc.data().marca,
+                    "nombre": doc.data().nombre,
+                    "precio": doc.data().precio,
+                    "stock": doc.data().stock,
+                    "subcategoria": doc.data().subcategoria
+                })                    
+                );
+        //console.log(herramientasItem);
         setHerramientasData(herramientasItem);      
         // console.log(herramientasData);
       })

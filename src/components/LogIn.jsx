@@ -52,6 +52,8 @@ const LogIn = () => {
                 if(user.uid == "cavjPbbF0ba3AWqjlzo04CEzTfh2"){
                     setUsuarioConectado(false);
                     setAdminConectado(true);
+                    localStorage.setItem("usuarioConectado", false);
+                    localStorage.setItem("adminConectado", true);
 
                     toast({
                         title: 'Usuario ADMIN',
@@ -64,6 +66,8 @@ const LogIn = () => {
                 else{
                     setUsuarioConectado(true);
                     setAdminConectado(false);
+                    localStorage.setItem("usuarioConectado", true);
+                    localStorage.setItem("adminConectado", false);
 
                     toast({
                         title: 'Ingreso al sistema',

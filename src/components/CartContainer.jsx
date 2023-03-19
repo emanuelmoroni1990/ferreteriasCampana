@@ -94,7 +94,10 @@ const CartContainer = () => {
     return (
         <div>
             <Text fontSize='2xl' mt="2%" className='box-personal'>Carrito de compras</Text>
-            {elementosCarrito}
+            {   cart.length > 0 ?
+                elementosCarrito :
+                <Text fontSize='xl' mt="2%" className='box-personal'>Aún no has comprado nada</Text>
+            }
             <Divider mt="5%"/>
             <Stack p="4" boxShadow="lg" m="4" borderRadius="sm">
                 <Stack
