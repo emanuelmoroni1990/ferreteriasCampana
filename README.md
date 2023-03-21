@@ -44,7 +44,7 @@ Gestión de productos
 El usuario administrador dentro de su perfil tendrá tres posibilidades de gestión,
 
     1. El ingreso de nuevas imágenes para asociar a los productos
-    1. El ingreso de nuevas herramientas en venta    
+    2. El ingreso de nuevas herramientas en venta    
     3. La eliminación de cualquiera de los artículos publicados
 
 1. Ingreso de nuevas imágenes
@@ -91,7 +91,11 @@ Finalmente, al confirmar la orden de compra, se generará un código de seguimie
 Servicios de Firebase
 ===
 
-Los servicios de Firebase fueron Firestore, Storage y Authentication.
+Los servicios de Firebase utilizados fueron,
+
+    1. Firestore
+    2. Storage    
+    3. Storage
 
 1. Firebase Firestore
 
@@ -109,7 +113,7 @@ Este servicio se uso simplemente para almacenar las imágenes que se asocian a c
 
 ![Alt text](./src/img/docs/imagen_16.png)
 
-2. Firebase Authtentication
+3. Firebase Authtentication
 
 Firebase provee diferentes formas de autenticación. Entre ellas se encuentra la verificación por correo y contraseña, la cual fue la que se utilizo. Como se puede ver cada usuario agregado en el sistema de autenticación posee un id único, y contra este es el que se verifica que el usuario admin se este logueando para hacer las tareas que tiene asignadas según sus permisos. De igual manera, este servicio se utiliza para validar que los usuarios se encuentren dados de alta en la plataforma.
 
