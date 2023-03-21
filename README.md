@@ -95,7 +95,7 @@ Los servicios de Firebase utilizados fueron,
 
     1. Firestore
     2. Storage    
-    3. Storage
+    3. Authentication
 
 1. Firebase Firestore
 
@@ -113,7 +113,7 @@ Este servicio se uso simplemente para almacenar las imágenes que se asocian a c
 
 ![Alt text](./src/img/docs/imagen_16.png)
 
-3. Firebase Authtentication
+3. Firebase Authentication
 
 Firebase provee diferentes formas de autenticación. Entre ellas se encuentra la verificación por correo y contraseña, la cual fue la que se utilizo. Como se puede ver cada usuario agregado en el sistema de autenticación posee un id único, y contra este es el que se verifica que el usuario admin se este logueando para hacer las tareas que tiene asignadas según sus permisos. De igual manera, este servicio se utiliza para validar que los usuarios se encuentren dados de alta en la plataforma.
 
