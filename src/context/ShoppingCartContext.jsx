@@ -14,12 +14,12 @@ const ShoppingCartContext = ({children}) => {
         user = localStorage.getItem("usuarioConectado");
         if(user == "false") user = false;
         if(user == "true") user = true;
-        console.log(user);
+        // console.log(user);
 
         admin = localStorage.getItem("adminConectado");
         if(admin == "false") admin = false;
         if(admin == "true") admin = true;
-        console.log(admin);
+        // console.log(admin);
     }    
 
     const [cart, setCart] = useState([]);

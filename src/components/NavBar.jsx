@@ -27,8 +27,8 @@ const NavBar = () => {
 
   const {cart, setCart, usuarioConectado, setUsuarioConectado, adminConectado, setAdminConectado} = useContext(CartContext);
 
-  console.log(usuarioConectado);
-  console.log(adminConectado);
+  // console.log(usuarioConectado);
+  // console.log(adminConectado);
 
   const auth = getAuth();  
   const navigate = useNavigate();  

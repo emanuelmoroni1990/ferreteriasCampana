@@ -120,7 +120,7 @@ const SignUp = () => {
                 </Avatar>
                 </Center>
                 <Center w="full">
-                <Button w="full">Cambiar avatar personal</Button>
+                <Button w="full" isDisabled={true}>Cambiar avatar personal</Button>
                 </Center>
             </Stack>
             </FormControl>
@@ -155,15 +155,9 @@ const SignUp = () => {
             />
             </FormControl>
             <Stack spacing={6} direction={['column', 'row']}>
-            <Button
-                bg={'red.400'}
-                color={'white'}
-                w="full"
-                _hover={{
-                bg: 'red.500',
-                }}>
+            {/* <Button bg={'red.400'} color={'white'} w="full" _hover={{bg: 'red.500'}}>
                 Cancelar
-            </Button>
+            </Button> */}
             <Button
                 bg={'blue.400'}
                 color={'white'}
