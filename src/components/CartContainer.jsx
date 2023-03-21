@@ -5,10 +5,18 @@ import '../styles/style.css'
 import React, { useState, useEffect, useContext } from 'react'
 import { CartContext } from '../context/ShoppingCartContext'
 import Cart from './Cart'
-import { Text, Divider, Stack, Button } from '@chakra-ui/react'
+import { Text, Divider, Stack, Button, useToast } from '@chakra-ui/react'
+import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore"
+import { getAuth } from "firebase/auth"
+import { Link, useNavigate } from 'react-router-dom'
 
 const CartContainer = () => {
-
+    
+    const toast = useToast();    
+    const navigate = useNavigate();
+    
+    const [coleccionDocs, setColeccionesDocs] = useState();
+    const [userInformacion, setUserInformacion] = useState();
     const {cart, setCart} = useContext(CartContext);
     // console.log("Elementos carrito: ");
     // console.log(cart);
@@ -68,6 +76,55 @@ const CartContainer = () => {
             console.log(cartAux);
         }            
     },[]);
+
+    useEffect(() => {
+        const db = getFirestore();
+        // console.log(db);        
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        // https://firebase.google.com/docs/reference/js/firestore_.md#collection
+        setColeccionesDocs(collection(db, "pedidosClientes"));
+        setUserInformacion(user);
+        //console.log(coleccionDocs);      
+    },[]);
+
+    const handlerConfirmacionCompra = () => {
+
+        let idPedidoCompra;        
+        let objetoPedidoCompra = {usuario: userInformacion.email};
+
+        for(let i = 0; i < cart.length; i++){
+            let itemName = "item" + i;
+            let objectAux = {};
+            
+            let arrayPedidoCompra = [];
+
+            arrayPedidoCompra.push(cart[i].nombre);
+            arrayPedidoCompra.push(cart[i].marca);
+            arrayPedidoCompra.push(cart[i].descripcion);
+            arrayPedidoCompra.push(cart[i].cantidad);
+            arrayPedidoCompra.push(cart[i].precio * cart[i].cantidad);
+
+            objectAux[itemName] = arrayPedidoCompra;
+
+            Object.assign(objetoPedidoCompra, objectAux)
+        }    
+
+        addDoc(coleccionDocs, objetoPedidoCompra).then( (docRef) => {
+            idPedidoCompra = docRef.id;
+            toast({
+                title: 'Pedido de compra realizado.',
+                description: "Su número de seguimiento es " + docRef.id,
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            })
+            setCart([]);
+            navigate("/ListadoProductos");
+        }).catch((error) => {console.log(error)})
+        
+    }
     
     const elementosCarrito = cart.map
     (compra => 
@@ -111,7 +168,7 @@ const CartContainer = () => {
                     direction={{ base: 'column', md: 'row' }}
                     justifyContent="flex-end"
                     className="stack-personal">
-                    <Button className='button-personal'>
+                    <Button className='button-personal' isDisabled={cart.length == 0} onClick={handlerConfirmacionCompra}>
                         Confirmar compra
                     </Button>
                 </Stack>
