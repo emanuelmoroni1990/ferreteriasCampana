@@ -1,41 +1,36 @@
-// Link de interés:
-// https://www.freecodecamp.org/espanol/news/ordenar-arreglos-en-javascript-como-usar-el-metodo-sort/#:~:text=En%20JavaScript%2C%20podemos%20ordenar%20los,siempre%20es%20la%20soluci%C3%B3n%20adecuada.
+// Sección del carrito de compras. REV. 21/03/2023 OK 
+// Emanuel Moroni
 
 import '../styles/style.css'
 import React, { useState, useEffect, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/ShoppingCartContext'
 import Cart from './Cart'
 import { Text, Divider, Stack, Button, useToast } from '@chakra-ui/react'
 import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
-import { Link, useNavigate } from 'react-router-dom'
 
 const CartContainer = () => {
-    
-    const toast = useToast();    
-    const navigate = useNavigate();
-    
+
+    const {cart, setCart} = useContext(CartContext);
     const [coleccionDocs, setColeccionesDocs] = useState();
     const [userInformacion, setUserInformacion] = useState();
-    const {cart, setCart} = useContext(CartContext);
-    // console.log("Elementos carrito: ");
-    // console.log(cart);
-
+    const navigate = useNavigate();
+    const toast = useToast();    
+    
     useEffect(() => {
         if(cart.length > 0){
             var cartAux = [];
-            // Hago esto para no hacer una shallow copy sino una deep copy. ¿Por qué hago esto? Porque si luego cambio cartAux, cambiará también cart. Y esto provocará un renderización
-            // en un loop infinito.
+            // Hago esto para no hacer una shallow copy sino una deep copy. ¿Por qué hago esto? Porque si luego cambio cartAux, cambiará también cart. Y esto provocará un renderización en un loop infinito.
             cartAux = JSON.parse(JSON.stringify(cart));
-            console.log(cartAux);
-
-            console.log(cartAux[cartAux.length - 1].id);
+            // console.log(cartAux);
+            // console.log(cartAux[cartAux.length - 1].id);
 
             // var cartOrdenado = [];
             // var elementosBorrar = [];
 
             const objetoAux = { cantidad: "", descripcion: "", id: "", marca: "", nombre: "", precio: "" };
-            console.log(objetoAux);
+            // console.log(objetoAux);
             var coincidencia = false;
             var indiceRepetido;
 
@@ -52,11 +47,6 @@ const CartContainer = () => {
                     objetoAux.precio = cartAux[i].precio;
                     console.log(objetoAux);
                     //cartAux.push(objetoAux);
-
-                    // cartAux.splice(i, 1);
-                    // console.log(cartAux)
-                    // cartAux.splice(cartAux.length - 1, 1);
-                    // console.log(cartAux)
                 }
             }
 
@@ -73,7 +63,7 @@ const CartContainer = () => {
             }
 
             setCart(cartAux);
-            console.log(cartAux);
+            // console.log(cartAux);
         }            
     },[]);
 
@@ -82,8 +72,6 @@ const CartContainer = () => {
         // console.log(db);        
         const auth = getAuth();
         const user = auth.currentUser;
-
-        // https://firebase.google.com/docs/reference/js/firestore_.md#collection
         setColeccionesDocs(collection(db, "pedidosClientes"));
         setUserInformacion(user);
         //console.log(coleccionDocs);      

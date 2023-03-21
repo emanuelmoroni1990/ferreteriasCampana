@@ -25,7 +25,7 @@ function App() {
           <Route exact path="/ItemUpload" element={<ItemUpload></ItemUpload>}></Route>
           <Route exact path="/ImageUpload" element={<ImageUpload></ImageUpload>}></Route>
           <Route exact path="/Cart" element={<CartContainer></CartContainer>}></Route>
-          <Route exact path="/OrderContainer" element={<OrderContainer></OrderContainer>}></Route>
+          {/* <Route exact path="/OrderContainer" element={<OrderContainer></OrderContainer>}></Route> */}
           <Route exact path="/LogIn" element={<LogIn></LogIn>}></Route>
           <Route exact path="/SignUp" element={<SignUp></SignUp>}></Route>
         </Routes>

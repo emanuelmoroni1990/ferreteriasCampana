@@ -1,13 +1,14 @@
-// Links de interés:
-// Manejo de archivos con JS: https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications
-// Firebase Storage: https://firebase.google.com/docs/storage/web/upload-files#web-version-9_1
-// https://stackoverflow.com/questions/62050827/firebase-web-storage-list-api-get-item-name
+// Sección de carga de imagen. REV. 21/03/2023 OK
+// Emanuel Moroni
 
-import React from 'react'
 import '../styles/style.css'
+import React from 'react'
+import { useToast } from '@chakra-ui/react'
 import { getStorage, ref, uploadBytesResumable, listAll } from "firebase/storage";
 
 const ImageUpload = () => {
+
+    const toast = useToast();    
 
     const handlerCargaImagen = (e) => {
         // Descomentar para debugging
@@ -25,28 +26,41 @@ const ImageUpload = () => {
 
         const uploadTask = uploadBytesResumable(storageRef, e.target.files[0], metadata);
 
-        // Register three observers:
-        // 1. 'state_changed' observer, called any time the state changes
-        // 2. Error observer, called on failure
-        // 3. Completion observer, called on successful completion
         uploadTask.on('state_changed', 
             (snapshot) => {
                 // Observe state change events such as progress, pause, and resume
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
+
+                toast({
+                    title: 'Cargando...',
+                    description: progress + '%',
+                    status: 'info',
+                    duration: 500,
+                    isClosable: true,
+                })
+
+                if(progress == 100){
+                    toast({
+                        title: 'Imagen cargada',
+                        description: progress + '%',
+                        status: 'success',
+                        duration: 3000,
+                        isClosable: true,
+                    })
+                }
+
+                // console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
-                case 'paused':
-                    console.log('Upload is paused');
-                    break;
-                case 'running':
-                    console.log('Upload is running');
-                    break;
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
                 }
             }, 
-            (error) => {
-                // Handle unsuccessful uploads
-            }        
+            (error) => { console.log(error) }        
         );
 
         e.preventDefault(); // prevent navigation to "#"

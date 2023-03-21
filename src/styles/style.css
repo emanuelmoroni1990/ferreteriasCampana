@@ -45,7 +45,7 @@
 .heading-personal{
     background-color: rgba(255, 252, 252, 0.5) !important;
     font-family: 'Roboto', sans-serif !important;
-    font-size: xx-large !important;
+    /* font-size: xx-large !important; */
     color: var(--main-letter-color-dark);
     border-radius: 25px;
     text-align: center;
@@ -65,7 +65,8 @@
 .item-personal{
     padding: 1rem;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    justify-content: space-evenly;
 }
 
 .item-personal__margin{
@@ -85,6 +86,13 @@
 .flex-box-personal{
     display: flex;
     justify-content: space-evenly;
+}
+
+/* Card */
+.imagen-card-personal{
+    width: 350px !important;
+    height: 250px !important;
+    object-fit: cover !important;
 }
 
 /* Item Detail - Sección de selección */

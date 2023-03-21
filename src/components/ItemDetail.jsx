@@ -1,23 +1,19 @@
-// Links de interés:
-// https://reactrouter.com/en/main/hooks/use-location
-// https://stackoverflow.com/questions/54676966/push-method-in-react-hooks-usestate
+// Sección de detalle de los items. REV 21/03/2023. OK.
+// Emanuel Moroni
 
 import '../styles/style.css'
 import React, { useState, useContext } from 'react'
 import { CartContext } from '../context/ShoppingCartContext'
 import { useNavigate } from 'react-router-dom'
 import { Card, Button, CardBody, CardFooter, Heading, Text, Image, Stack, Box, Input, useNumberInput, Flex, Spacer, useToast} from '@chakra-ui/react'
-import { getFirestore, doc, updateDoc  } from "firebase/firestore";
+import { getFirestore, doc, updateDoc } from "firebase/firestore";
 
 const ItemDetail = ({ herramienta }) => {
-    
-    // Descomentar para debbuging.
-    // console.log(herramienta);
-    const toast = useToast();    
-    const navigate = useNavigate();
 
     const {cart, setCart, usuarioConectado, setUsuarioConectado} = useContext(CartContext);
     const [cantidadCompra, setCantidadCompra] = useState(0);
+    const navigate = useNavigate();
+    const toast = useToast();       
 
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
@@ -53,7 +49,7 @@ const ItemDetail = ({ herramienta }) => {
 
     const handlerSeleccionCompra = () => {
         //console.log(cantidadCompra);
-        if(usuarioConectado && (herramienta[0].stock > 0)){
+        if(usuarioConectado && (herramienta[0].stock > 0) && cantidadCompra > 0){
             // Primero armo un nuevo objeto de datos para presentar en la tarjeta de compra
             const auxObjeto = {
                 id: herramienta[0].id,
@@ -65,25 +61,14 @@ const ItemDetail = ({ herramienta }) => {
             };
 
             // Además, tengo que actualizar el stock en la base de datos, a partir de lo solicitado por el usuario
-            // https://firebase.google.com/docs/firestore/manage-data/add-data?hl=es-419#update-data
             const db = getFirestore();
             const documentoUnicoRef = doc(db, "herramientasStock", herramienta[0].id);
             updateDoc(documentoUnicoRef, {stock: (herramienta[0].stock - cantidadCompra)}).then(
-                console.log("Actualizacion de stock en base de datos...")
+                // console.log("Actualizacion de stock en base de datos...")
             ).catch((error) => console.log(error))
 
             // Luego actualizo la información en el contexto de trabajo
-            // A JavaScript spread operator is a suitable option for easily providing you with the combining arrays. These are used to add the item to the array in React state.
             setCart([...cart, auxObjeto]);
-
-            // En el primero de los casos que se agregue un elemento al carrito, no se podrá repetir nunca un objeto seleccionado. Ahora, ya luego de la segunda selección
-            // se puede dar que los elementos se repitan.
-            // Repasaré entonces que no haya ya seleccionado el mismo artículo. De ser así, incremento el número de artículos a comprar en el original.
-            // const elementoRepetido = cart.filter((elementoCarrito) => (elementoCarrito.marca == auxObjeto.marca));
-            // console.log("Cart: ")
-            // console.log(cart)
-            // console.log("Elemento repetido: ")
-            // console.log(elementoRepetido);
 
             // Muestro un pequeño toast indicando que la tarea fue exitosa
             toast({
@@ -100,6 +85,15 @@ const ItemDetail = ({ herramienta }) => {
             toast({
                 title: 'No hay stock.',
                 description: "No hay más artículos disponibles de este producto.",
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            })
+        }
+        else if (cantidadCompra == 0){
+            toast({
+                title: 'Seleccione más que 0.',
+                description: "No es posible seleccionar ningún artículo.",
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -123,7 +117,7 @@ const ItemDetail = ({ herramienta }) => {
                     objectFit='cover'
                     maxW={{ base: '100%', sm: '300px' }}
                     src={herramienta[0].imagen}
-                    //src={"../src/img/tools_1.jpg"}
+                    // src={"../src/img/tools_1.jpg"} // Descomentar para emplear una imagen local.
                     borderRadius='lg'
                 />
                 <Stack>

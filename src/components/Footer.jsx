@@ -1,3 +1,6 @@
+// Sección en desarrollo. No aplica para la entrega final de proyecto. 21/03/2023
+// Emanuel Moroni.
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Box, Container, Stack, Text, useColorModeValue } from '@chakra-ui/react';

@@ -1,11 +1,10 @@
-// Links de interes:
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise#return_value
+// Sección de listado de items. REV 21/03/2023. OK
+// Emanuel Moroni
 
-// import herramientasData from '../data.json'
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Spinner } from '@chakra-ui/react'
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import ItemList from './ItemList';
 
 const ItemListContainer = () => {
@@ -16,7 +15,6 @@ const ItemListContainer = () => {
 
     // Nueva funcionalidad implentada con el uso de Firestore
     useEffect(() => {      
-      // Descomentar para debugging.
       const db = getFirestore();
       // console.log(db);
       const coleccion = collection(db, "herramientasStock");
@@ -38,12 +36,9 @@ const ItemListContainer = () => {
                 );
         //console.log(herramientasItem);
         setHerramientasData(herramientasItem);      
-        // console.log(herramientasData);
       })
       .catch((error) => console.log(error));
     }, []);
-    
-    // console.log(herramientasData);
 
     // Agrego el método de pasado a LowerCase en la marca para evitar problemas en la redirección en el path indicado.
     return (

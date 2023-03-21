@@ -1,12 +1,11 @@
-// Links de interes:
-// https://chakra-ui.com/docs/components/card/usage
-// https://github.com/facebook/react/issues/23347
+// Sección de item. REV. 21/03/2023 OK.
+// Emanuel Moroni
 
 import '../styles/style.css'
 import React, { useState, useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/ShoppingCartContext'
 import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, Button } from '@chakra-ui/react'
-import { Link, useNavigate } from 'react-router-dom'
 import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
 const Item = ({idNumber, id, nombre, categoria, subcategoria, imagen, stock}) => {
@@ -29,16 +28,11 @@ const Item = ({idNumber, id, nombre, categoria, subcategoria, imagen, stock}) =>
         ).catch((error) => console.log(error));    
     }
 
-    // Decomentar en caso de que sea necesario el debugging.
-    // console.log(id);
-    // console.log(nombre);
-    // console.log(descripcion);
-    // console.log(stock);
     return (
         <div key={idNumber} className='item-personal'>
             <Card maxW='sm'>
                 <CardBody>
-                    <Image src={imagen} alt='Foto de herramienta generica.' borderRadius='lg'/>
+                    <Image src={imagen} alt='Foto de herramienta generica.' borderRadius='lg' className='imagen-card-personal'/>
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{nombre}</Heading>
                         <Text>Categoría: {categoria}</Text>

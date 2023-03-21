@@ -1,5 +1,5 @@
-// Links de interés: 
-// https://firebase.google.com/docs/auth/web/start#sign_up_new_users
+// Sección de SignUp. REV 21/03/2023 OK
+// Emanuel Moroni
 
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -8,9 +8,9 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
 
-    const toast = useToast();
     const navigate = useNavigate();
-
+    const toast = useToast();
+    
     //#region EstadosCampos
 
     const [nombreUsuario, setNombreUsuario] = useState("");
@@ -40,15 +40,14 @@ const SignUp = () => {
 
     const handlerAltaUsuario = () => {
         if((nombreUsuario != "") && (correoUsuario != "") && (contraseniaUsuario != "")){
-            console.log("Usuario " + nombreUsuario + " Correo: " + correoUsuario + " Contraseña: " + contraseniaUsuario);            
-
+            // console.log("Usuario " + nombreUsuario + " Correo: " + correoUsuario + " Contraseña: " + contraseniaUsuario);            
             const auth = getAuth();
 
             createUserWithEmailAndPassword(auth, correoUsuario, contraseniaUsuario)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user);
+                // console.log(user);
 
                 toast({
                     title: 'Usuario dado de alta',
@@ -59,11 +58,10 @@ const SignUp = () => {
                 });
 
                 navigate("/ListadoProductos");
-                // ...
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
                 // console.log(error.message)
                 toast({
                     title: 'Advertencia',
@@ -72,7 +70,6 @@ const SignUp = () => {
                     duration: 3000,
                     isClosable: true,
                 });
-                // ..
             });
         }
         else{

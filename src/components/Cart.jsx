@@ -1,3 +1,6 @@
+// Sección del carrito de compras. REV. 21/03/2023 OK 
+// Emanuel Moroni
+
 import '../styles/style.css'
 import React, { useContext } from 'react'
 import { CartContext } from '../context/ShoppingCartContext'

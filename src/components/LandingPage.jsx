@@ -1,16 +1,9 @@
-// Links de interes:
-// React icons: https://github.com/atisawd/boxicons
-// React Slick: https://github.com/akiran/react-slick
-
-// Chakra
-// Template utilizado: https://chakra-templates.dev/page-sections/carousels
+// Sección de Landing Page. REV. 21/03/2023 OK.
+// Emanuel Moroni
 
 import React, { useState } from 'react';
-import { Box, IconButton, useBreakpointValue, Stack, Heading, Text, Container } from '@chakra-ui/react';
-// Here we have used react-icons package for the icons
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
-// And react-slick as our Carousel Lib
 import Slider from 'react-slick';
+import { Box, IconButton, useBreakpointValue, Stack, Heading, Text, Container } from '@chakra-ui/react';
 
 // Settings for the slider
 const settings = {
@@ -26,6 +19,8 @@ const settings = {
 };
 
 const LandingPage = () => {
+  // Todo esta sección es practicamente un copia del template de chakra ya que solo es un página de Landing. Lo que se modifica son los estilos y detalles finales.
+
   // As we have used custom buttons, we need a reference variable to
   // change the state
   const [slider, setSlider] = useState(0);
@@ -73,31 +68,6 @@ const LandingPage = () => {
         type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
       />
-      {/* Left Icon */}
-      {/* <IconButton
-        aria-label="left-arrow"
-        variant="ghost"
-        position="absolute"
-        left={side}
-        top={top}
-        transform={'translate(0%, -50%)'}
-        zIndex={2}
-        onClick={() => slider?.slickPrev()}>
-        <BiLeftArrowAlt size="40px" />
-      </IconButton>
-      {/* Right Icon */}
-      {/* <IconButton
-        aria-label="right-arrow"
-        variant="ghost"
-        position="absolute"
-        right={side}
-        top={top}
-        transform={'translate(0%, -50%)'}
-        zIndex={2}
-        onClick={() => slider?.slickNext()}>
-        <BiRightArrowAlt size="40px" />
-      </IconButton> */}
-      {/* Slider */}
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {cards.map((card, index) => 
           <Box
@@ -113,11 +83,11 @@ const LandingPage = () => {
               <Stack
                 spacing={6}
                 w={'full'}
-                maxW={'lg'}
+                // maxW={'lg'}
                 position="absolute"
                 top="75%"
                 transform="translate(0, -50%)">
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} className='heading-personal'>
+                <Heading fontSize={{ base: 'md', md: '2xl', lg: '3xl' }} className='heading-personal'>
                   {card.title}
                 </Heading>
               </Stack>

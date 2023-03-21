@@ -1,4 +1,4 @@
-// Barra de navegación. REV. 21/03/2023
+// Barra de navegación. REV. 21/03/2023 OK
 // Emanuel Moroni
 
 import '../styles/style.css'
@@ -8,14 +8,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { getAuth, signOut } from "firebase/auth";
+import { getFirestore, doc, collection, updateDoc, getDoc } from "firebase/firestore";
 
 const NavBar = () => {
-
-  const {cart, setCart, usuarioConectado, setUsuarioConectado, adminConectado, setAdminConectado} = useContext(CartContext);
-
   // console.log(usuarioConectado);
   // console.log(adminConectado);
- 
+
+  const {cart, setCart, usuarioConectado, setUsuarioConectado, adminConectado, setAdminConectado} = useContext(CartContext);
   const navigate = useNavigate();
   // useDisclosure is a custom hook used to help handle common open, close, or toggle scenarios. It can be used to control feedback component such as Modal, AlertDialog, Drawer, etc.
   // The useDisclosure hook returns an object with the following fields:
@@ -32,8 +31,33 @@ const NavBar = () => {
       setUsuarioConectado(false);
       window.localStorage.setItem("usuarioConectado", false);
       window.localStorage.setItem("adminConectado", false);
-      navigate("/");
 
+      const db = getFirestore();
+      const coleccion = collection(db, "herramientasStock");
+      // console.log(coleccion);
+      // console.log(cart)
+
+      // Esta parte actualiza la base de datos si el usuario se desloguea sin confirmar el pedido de compra. Repasar para futuras versiones del proyecto.
+      for(let i = 0; i < cart.length; i++){
+        let documentoUnicoRef = doc(db, "herramientasStock", cart[i].id);
+
+        // Luego traigo de la base de datos el stock actual que hay.
+        getDoc(documentoUnicoRef).then((snapshot) => {
+          if(snapshot.exists()){
+              const stockActualFirestore = snapshot.data().stock;
+              //console.log(stockActualFirestore);
+
+              // Una vez que cuento con el stock, lo sumo a lo eliminado por usuario, ya que este valor se actualizará.
+              updateDoc(documentoUnicoRef, {stock: cart[i].cantidad + stockActualFirestore}).then(
+                  //console.log("Actualizacion de stock en base de datos...")
+              ).catch((error) => console.log(error))
+          }
+        }
+        ).catch((error) => console.log(error));    
+      }
+
+      setCart([]);
+      navigate("/");
     }).catch((error) => { console.log(error); });
   }
 
@@ -73,8 +97,8 @@ const NavBar = () => {
                   <MenuList>
                     <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/stanley'}>Stanley</Link></MenuItem>
                     <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/bahco'}>Bahco</Link></MenuItem>
-                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/bosch'}>Bosch</Link></MenuItem>
-                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/makita'}>Makita</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/skill'}>SKILL</Link></MenuItem>
+                    {/* <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/makita'}>Makita</Link></MenuItem> */}
                     <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/generico'}>Genéricas</Link></MenuItem>
                 </MenuList>
                 </Menu>
@@ -162,8 +186,8 @@ const NavBar = () => {
                   <MenuList>
                     <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/stanley'}>Stanley</Link></MenuItem>
                     <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/bahco'}>Bahco</Link></MenuItem>
-                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/bosch'}>Bosch</Link></MenuItem>
-                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/makita'}>Makita</Link></MenuItem>
+                    <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/skill'}>Skill</Link></MenuItem>
+                    {/* <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/makita'}>Makita</Link></MenuItem> */}
                     <MenuItem className='menuButton-personal'><Link to={'/MarcasProductos/generico'}>Genéricas</Link></MenuItem>
                 </MenuList>
                 </Menu>

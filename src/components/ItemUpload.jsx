@@ -1,17 +1,12 @@
-// Link de interés:
-// https://firebase.google.com/docs/reference/js/firestore_
-// Eventos: https://beta.reactjs.org/learn/responding-to-events
-// HandleInputs: https://beta.reactjs.org/reference/react-dom/components/input#reading-the-input-values-when-submitting-a-form
-// https://www.linkedin.com/pulse/passing-data-react-between-parent-child-functional-components-tay/?trk=pulse-article_more-articles_related-content-card
-// https://chakra-ui.com/docs/styled-system/style-props
-// mt -> margin-top; mr -> margin-right
+// Sección de carga de un nuevo item. REV. 21/03/2023 OK
+// Emanuel Moroni
 
 import React, { useEffect, useState } from 'react'
 import { Progress, Box, Button, Heading, Flex, FormControl, FormLabel, Input, GridItem, Select, useToast } from '@chakra-ui/react';
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
-// import ImageUpload from './ImageUpload'
  
+// Estas variables globales son creadas para modificar la barra de progreso que cambia mediante el ingreso de la información del nuevo producto.
 const cantidadCampos = 8;
 const incrementoPorcentual = 100 / cantidadCampos;
 
@@ -20,7 +15,6 @@ const ItemUpload = () => {
   const toast = useToast();
 
   const [coleccionDocs, setColeccionesDocs] = useState();
-  //const [refereciaStorage, setReferenciaStorage] = useState();
   const [imagenesHerramientas, setImagenesHerramientas] = useState([]);
 
   // Este useEffect lo utilizo para listar todos los nombres de las imagenes disponibles para adjuntar al producto.
@@ -47,10 +41,8 @@ const ItemUpload = () => {
   useEffect(() => {
     const db = getFirestore();
     // console.log(db);
-
-    // https://firebase.google.com/docs/reference/js/firestore_.md#collection
     setColeccionesDocs(collection(db, "herramientasStock"));
-    //console.log(coleccionDocs);      
+    // console.log(coleccionDocs);      
   },[]);
 
   //#region EstadosCampos
@@ -231,14 +223,8 @@ const ItemUpload = () => {
    
   // Esta funcion sera la encargada de subir la informacion a la base de datos y reiniciar los campos en el componente.
   const handlerFirestore = () => {
-    // console.log(NombreHerramienta);
-    // console.log(MarcaHerramienta);
-    // console.log(DescripcionHerramienta);
-    // console.log(StockHerramienta);
-    // console.log(CategoriaHerramienta);
-    // console.log(SubCategoriaHerramienta);
-    // console.log(progress);
 
+    // Genero un nuevo item para poder actualizar en la base de datos.
     const item =
     {
       "nombre": NombreHerramienta,
@@ -251,7 +237,6 @@ const ItemUpload = () => {
       "precio": PrecioHerramienta,
     }
 
-    // https://firebase.google.com/docs/reference/js/firestore_.md?hl=es-419#adddoc
     addDoc(coleccionDocs, item).then( () => {
         setNombreHerramienta("");
         setMarcaHerramienta("");
@@ -279,7 +264,6 @@ const ItemUpload = () => {
           duration: 3000,
           isClosable: true,
         })
-        // console.log("Pasé por aquí..."); 
       }
     ).catch((error) => {
 
@@ -363,7 +347,6 @@ const ItemUpload = () => {
               </Flex>              
             </div>
 
-            {/* Boton de confirmacion de carga de datos. Aquí debo habilitar o verificar dependiendo que este, o no, toda la informacion */}
             <Flex w="100%" justifyContent="space-between" mt="5%" className='flex-personal'>
               <FormControl as={GridItem} colSpan={[6, 3]} className="form-imagen-personal">
                 <FormLabel
@@ -394,7 +377,8 @@ const ItemUpload = () => {
                     )
                   }
                 </Select>
-              </FormControl>              
+              </FormControl>     
+              {/* Boton de confirmacion de carga de datos. Aquí debo habilitar o verificar dependiendo que este, o no, toda la informacion */}         
               <Button
                   w="7rem"
                   colorScheme="teal"

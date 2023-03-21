@@ -1,3 +1,6 @@
+// Sección en desarrollo. No aplica para la entrega final de proyecto. 21/03/2023
+// Emanuel Moroni.
+
 import React, { useState, useEffect } from 'react'
 import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth"

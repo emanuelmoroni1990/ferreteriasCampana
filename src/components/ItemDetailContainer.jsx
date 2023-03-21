@@ -1,13 +1,11 @@
-// Links de interés:
-// https://reactrouter.com/en/main/hooks/use-params
-// https://stackoverflow.com/questions/54069253/the-usestate-set-method-is-not-reflecting-a-change-immediately
+// Sección de detalle de los items. REV 21/03/2023. OK.
+// Emanuel Moroni
 
-// import herramientasData from '../data.json'
 import '../styles/style.css'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Spinner } from '@chakra-ui/react'
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import ItemDetail from './ItemDetail';
 
 const ItemDetailContainer = () => {
@@ -40,14 +38,14 @@ const ItemDetailContainer = () => {
                 );
             // console.log(herramientasItem);
             setHerramientaData(herramientasItem);
-            // console.log(herramientaData);
         })
         .catch((error) => console.log(error));
     }, []);
 
-    // console.log(herramientaData); 
-
+    //#region ComentarioImportante
     // Also, the main issue here is not just the asynchronous nature but the fact that state values are used by functions based on their current closures, and state updates will reflect in the next re-render by which the existing closures are not affected, but new ones are created. 
+    //#endregion
+
     return (
         <div>
             {
