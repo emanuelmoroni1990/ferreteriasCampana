@@ -64,3 +64,26 @@ El proceso de alta de nuevos artículos es simplemente el llenado de un formular
 Por último, el usuario administrador, podrá desde la sección de productos eliminar cualquiera de ellos según lo desee. Una vez eliminados, el usuario final no podrá verlos más en las opciones de compra.
 
 ![Alt text](./src/img/docs/imagen_8.png)
+
+Generación de nueva orden de compra
+===
+
+El usuario final de la plataforma será capaz de realizar pedidos de compra y obtener a partir de cada uno de ellos un número de seguimiento único. Aún no se encuentra en esta etapa del proyecto, pero también podrá observar todos los números de ordenes realizadas y evaluar el estado en el que se encuentran.
+
+![Alt text](./src/img/docs/imagen_9.png)
+
+Una vez logueado con su cuenta correspondiente el usuario podrá acceder a los detalles de cada uno de los artículos en venta disponibles en la plataforma. En cada uno de ellos podrá ver el stock actualizado y, para visualizar los detalles y agregarlo al carrito, deberá hacer click en el botón de detalles en cada uno de ellos.
+
+![Alt text](./src/img/docs/imagen_10.png)
+
+Dentro del detalle de cada artículo podrá agregar la cantidad deseada que quiere comprar, siempre y cuando la misma no sea menor a 1 ni mayor al stock. Una vez seleccionado la cantidad de items necesarios de cada artículo, el stock se modificará en la base de datos y se actualizará el carrito de compras del usuario.
+
+![Alt text](./src/img/docs/imagen_11.png)
+
+En caso de que el usuario, luego de ya haber seleccionado un artículo, y el mismo ya se encontrase en el carrito de compras, el mismo se sumará a la cantidad pedida anteriormente, resultando solo la sumatoria de items de un mismo artículo. La cantidad de artículos en el carrito de compra se podrán ver en el avatar de su perfil.
+
+![Alt text](./src/img/docs/imagen_12.png)
+
+Finalmente, al confirmar la orden de compra, se generará un código de seguimiento único, asociado a cada usuario, y se retornará a la página principal de compras donde podrá realizar nuevos pedidos y ver los productos, ya con el stock actualizado.
+
+![Alt text](./src/img/docs/imagen_13.png)
