@@ -167,6 +167,7 @@ const NavBar = () => {
                   {/* <MenuItem>Editar perfil</MenuItem> */}
                   {/* <MenuItem><Link to={'/ItemUpload'}>Ingresar artículos</Link></MenuItem> */}
                   <MenuItem><Link to={'/Cart'}>Carrito de compras: {cart.length}</Link></MenuItem>
+                  <MenuItem><Link to={'/OrderContainer'}>Pedidos realizados</Link></MenuItem>
                   <MenuDivider />
                   <MenuItem onClick={handlerCierreSesion}>Cerrar sesión</MenuItem>
                 </MenuList>

@@ -9,7 +9,9 @@ import ImageUpload from "./components/ImageUpload";
 import CartContainer from "./components/CartContainer";
 import LogIn from "./components/LogIn";
 import SignUp from "./components/SignUp";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
+import Order from "./components/Order";
+import OrderContainer from "./components/OrderContainer";
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
           <Route exact path="/ItemUpload" element={<ItemUpload></ItemUpload>}></Route>
           <Route exact path="/ImageUpload" element={<ImageUpload></ImageUpload>}></Route>
           <Route exact path="/Cart" element={<CartContainer></CartContainer>}></Route>
+          <Route exact path="/OrderContainer" element={<OrderContainer></OrderContainer>}></Route>
           <Route exact path="/LogIn" element={<LogIn></LogIn>}></Route>
           <Route exact path="/SignUp" element={<SignUp></SignUp>}></Route>
         </Routes>
